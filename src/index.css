@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
+@import "swiper/css";
+@import "swiper/css/effect-coverflow";
+
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+    --radius: 0.625rem;
+    --background: #FFFFFF;  
+    --foreground: #242424; 
+    --card: #FFFFFF;  
+    --card-foreground: #242424; 
+    --popover: #FFFFFF;  
+    --popover-foreground: #242424; 
+    --primary: #363636; 
+    --primary-foreground: #FAFAFA;  
+    --secondary: #F7F7F7;  
+    --secondary-foreground: #363636; 
+    --muted: #F7F7F7; 
+    --muted-foreground: #8D8D8D;  
+    --accent: #F7F7F7; 
+    --accent-foreground: #363636; 
+    --destructive: #E11D48;  
+    --border: #EBEBEB;  
+    --input: #EBEBEB;  
+    --ring: #B4B4B4; 
+    --chart-1: #D35F17;  
+    --chart-2: #1E88E5;
+    --chart-3: #0D47A1;  
+    --chart-4: #FFA000;  
+    --chart-5: #FF6F00;  
+    --sidebar: #FCFCFC;  
+    --sidebar-foreground: #242424; 
+    --sidebar-primary: #363636; 
+    --sidebar-primary-foreground: #FCFCFC;  
+    --sidebar-accent: #F7F7F7; 
+    --sidebar-accent-foreground: #363636; 
+    --sidebar-border: #EBEBEB; 
+    --sidebar-ring: #B4B4B4;  
+    --description: #aaa8a8;
+    --dark-blue: #030820;
+  }
+  
+  .dark {
+    --background: #242424; 
+    --foreground: #FCFCFC;  
+    --card: #363636; 
+    --card-foreground: #FCFCFC;  
+    --popover: #363636;  
+    --popover-foreground: #FCFCFC;  
+    --primary: #EBEBEB;  
+    --primary-foreground: #363636;  
+    --secondary: #464646;  
+    --secondary-foreground: #FCFCFC;  
+    --muted: #464646;  
+    --muted-foreground: #B4B4B4;  
+    --accent: #464646;  
+    --accent-foreground: #FCFCFC;  
+    --destructive: #EF4444; 
+    --border: rgba(255, 255, 255, 0.1);  
+    --input: rgba(255, 255, 255, 0.15);  
+    --ring: #8D8D8D;  
+    --chart-1: #7C3AED;  
+    --chart-2: #3B82F6;  
+    --chart-3: #FF6F00;  
+    --chart-4: #D946EF;  
+    --chart-5: #F43F5E;  
+    --sidebar: #363636;  
+    --sidebar-foreground: #FCFCFC;  
+    --sidebar-primary: #7C3AED;  
+    --sidebar-primary-foreground:
+    --sidebar-accent: #464646;  
+    --sidebar-accent-foreground: #FCFCFC; 
+    --sidebar-border: rgba(255, 255, 255, 0.1);  
+    --sidebar-ring: #8D8D8D;  
+    --description: #888;  
+  }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-description: var(--description);
+  --color-uaipy-primary: var(--dark-blue);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}

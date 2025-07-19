@@ -1,0 +1,40 @@
+{
+    "features": [
+        {
+            "id": 1,
+            "title": "Pluviometro",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius voluptatum soluta magni deserunt corrupti voluptates neque molestias aperiam rerum? Fuga iusto eos porro at tempore quidem et officiis nostrum.",
+            "icon": "CloudAlert"
+        },
+        {
+            "id": 2,
+            "title": "Pluviometro",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius voluptatum soluta magni deserunt corrupti voluptates neque molestias aperiam rerum? Fuga iusto eos porro at tempore quidem et officiis nostrum.",
+            "icon": "Activity"
+        },
+        {
+            "id": 3,
+            "title": "Pluviometro",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius voluptatum soluta magni deserunt corrupti voluptates neque molestias aperiam rerum? Fuga iusto eos porro at tempore quidem et officiis nostrum.",
+            "icon": "AccessibilityIcon"
+        },
+        {   
+            "id": 4,
+            "title": "Pluviometro",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius voluptatum soluta magni deserunt corrupti voluptates neque molestias aperiam rerum? Fuga iusto eos porro at tempore quidem et officiis nostrum.",
+            "icon": "AlarmSmoke"
+        },
+        {
+            "id": 5,
+            "title": "Pluviometro",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius voluptatum soluta magni deserunt corrupti voluptates neque molestias aperiam rerum? Fuga iusto eos porro at tempore quidem et officiis nostrum.",
+            "icon": "ALargeSmallIcon"
+        },
+        {
+            "id": 6,
+            "title": "Pluviometro",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius voluptatum soluta magni deserunt corrupti voluptates neque molestias aperiam rerum? Fuga iusto eos porro at tempore quidem et officiis nostrum.",
+            "icon": "AlarmClock"
+        }
+    ]
+}
