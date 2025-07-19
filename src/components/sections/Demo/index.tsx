@@ -8,15 +8,15 @@ export const Demo = () => {
                 <h2 className="text-white mb-5 font-bold">Atributos chave</h2>
                 <div className="flex bg-[#FFFFFA] items-center rounded-lg mb-4 py-2 px-3">
                     <CircleCheckBig size={20} />
-                    <p className="text-xs ml-2">Interface gráfica para visualização dos dados</p>
+                    <p className="text-xs ml-2">Exemplo prático de aplicação da UAI.py</p>
                 </div>
                 <div className="flex bg-[#FFFFFA] items-center rounded-lg mb-4 py-2 px-3">
                     <CircleCheckBig size={20} />
-                    <p className="text-xs ml-2">Consumo e processamento de dados em tempo real</p>
+                    <p className="text-xs ml-2">Processamento de dados em tempo real</p>
                 </div>
                 <div className="flex bg-[#FFFFFA] items-center rounded-lg py-2 px-3">
                     <CircleCheckBig size={20} />
-                    <p className="text-xs ml-2">Mais alguma coisa aqui!!!</p>
+                    <p className="text-xs ml-2">Interface gráfica para visualização dos dados</p>
                 </div>
             </div>
             <div className="sm:ml-10">
@@ -25,7 +25,7 @@ export const Demo = () => {
                     <h2 className="uppercase text-xs tracking-widest mb-2">Veja funcionando</h2>
                 </div>
                 <p className="text-justify text-sm mb-3 sm:hidden md:flex lg:text-base">Veja na prática como a UAI.py pode ser aplicada no dia a dia.</p>
-                <Button variant='gradient' size="lg" className="mt-2 cursor-pointer"><a href="">Clique para acessar</a></Button>
+                <Button variant='gradient' size="lg" className="mt-2 cursor-pointer"><a href="https://uaipy-ui.vercel.app/auth" target="_blank" rel="noopener noreferrer">Clique para acessar</a></Button>
             </div>
         </section>
     )

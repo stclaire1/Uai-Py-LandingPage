@@ -1,5 +1,7 @@
 import logo from '@/assets/logo.png';
 import { Mail } from 'lucide-react'
+import iftm from '@/assets/iftm.png'
+import receita from '@/assets/receitaFederal.svg'
 
 export const Footer = () => {
     return (
@@ -7,9 +9,13 @@ export const Footer = () => {
             <div className="flex flex-col w-full max-w[450px] m-auto border-b border-uaipy-primary mb-4 md:flex-row md:justify-between md:items-center">
                 <div className="md:w-full md:max-w-1/2 lg:max-w-2/5 xl:max-w-1/3">
                     <img src={logo} className="w-full max-w-28" alt="" />
-                    <p className="mb-8 mt-5 text-sm lg:text-base">A UAI.py surgiu pelo interesse comum entre colegas sobre o desenvolvimento sustentável e inovador e continua evoluindo todos os dias! :)</p>
+                    <p className="mb-5 mt-5 text-sm lg:text-base">A UAI.py surgiu pelo interesse comum entre colegas sobre o desenvolvimento sustentável e inovador e continua evoluindo todos os dias! :)</p>
                 </div>
                 <div>
+                    <div className="flex gap-5 mb-6 md:mb-0">
+                        <img src={iftm} alt="" className="w-[60px] h-[60px] mb-5"/>
+                        <img src={receita} alt="" className="w-[60px] h-[60px]"/>
+                    </div>
                     <p className="border-l border-black px-[12px] uppercase">Entre em contato conosco</p>
                     <address className="flex flex-col items-start mb-8 mt-4 not-italic">
                         <a href="mailto:projetouaipy@gmail.com" className="flex items-center">
