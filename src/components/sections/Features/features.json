@@ -4,37 +4,37 @@
             "id": 1,
             "title": "Estação meteorológica",
             "description": "A UAI.py pode ser utilizada como estação de monitoramento climatológico, coletando dados de temperatura, umidade e pressão atmosférica em tempo real.",
-            "icon": "CloudAlert"
+            "icon": "CloudRain"
         },
         {
             "id": 2,
             "title": "Monitoramento industrial",
             "description": "Em ambientes industriais, a UAI.py atua como um sensor inteligente para supervisão de máquinas e processos. Coletando informações como temperatura, vibração e umidade.",
-            "icon": "Activity"
+            "icon": "Gauge"
         },
         {
             "id": 3,
             "title": "Controle e automação",
             "description": "Com capacidade de integração a atuadores e sistemas automatizados, a UAI.py pode ser empregada no controle de iluminação, irrigação, climatização e muito mais.",
-            "icon": "AccessibilityIcon"
+            "icon": "Settings2"
         },
         {
             "id": 4,
             "title": "Agricultura de precisão",
             "description": "Por meio da integração com sensores de umidade do solo, temperatura, luminosidade e qualidade do ar, ela permite o monitoramento constante das condições agrícolas.",
-            "icon": "AccessibilityIcon"
+            "icon": "Sprout"
         },
         {
             "id": 5,
             "title": "Segurança e vigilância",
             "description": "Com suporte a sensores de movimento, câmeras e alarmes, a UAI.py pode ser utilizada como um sistema de segurança inteligente e personalizável.",
-            "icon": "AccessibilityIcon"
+            "icon": "ShieldCheck"
         },
         {
             "id": 6,
             "title": "Casas inteligentes",
             "description": "ansforme qualquer ambiente em uma casa conectada com a UAI.py. Ela permite o controle automatizado de luzes, eletrodomésticos, cortinas e outros dispositivos por meio de sensores ou comandos remotos.",
-            "icon": "AccessibilityIcon"
+            "icon": "HomeAutomation"
         }
     ]
 }
