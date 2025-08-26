@@ -5,6 +5,7 @@ import { Footer } from "./components/sections/Footer";
 import { ProjectConcept } from "./components/sections/ProjectConcept";
 import { Team } from "./components/sections/Team";
 import { RepoRedirect } from "./components/sections/RepoRedirect";
+import { CTA} from "./components/sections/CTA";
 import { TechEvents } from "./components/sections/TechEvents";
 import { Demo } from "./components/sections/Demo";
 
@@ -16,6 +17,7 @@ function App() {
           <Features />
           <Team />
           <RepoRedirect />
+          <CTA />
           <TechEvents />
           <Demo />
           <Footer />
