@@ -11,7 +11,7 @@ export const RepoRedirect = () => {
                     <p className="text-sm mb-6 text-[white] sm:mb-0">Clique para ser redirecionado ao repositório</p>
                 </div>
                 <Button asChild variant='plain' size="md" className="cursor-pointer lg:px-10">
-                    <a href="https://github.com/uaipy" target="_blank" rel="noopener noreferrer">Conheça+</a>
+                    <a href="https://github.com/uaipy" target="_blank" rel="noopener noreferrer">Veja o nosso repositório no GitHub</a>
                 </Button>
             </div>
         </section>
