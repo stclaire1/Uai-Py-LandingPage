@@ -25,7 +25,7 @@ export const Demo = () => {
                     <h2 className="uppercase text-xs tracking-widest mb-2">Veja funcionando</h2>
                 </div>
                 <p className="text-justify text-sm mb-3 sm:hidden md:flex lg:text-base">Veja na prática como a UAI.py pode ser aplicada no dia a dia.</p>
-                <Button variant='gradient' size="lg" className="mt-2 cursor-pointer"><a href="https://uaipy-ui.vercel.app" target="_blank" rel="noopener noreferrer">Clique para acessar</a></Button>
+                <Button variant='gradient' size="lg" className="mt-2 cursor-pointer"><a href="https://app.uaipy.com.br" target="_blank" rel="noopener noreferrer">Clique para acessar</a></Button>
             </div>
         </section>
     )
