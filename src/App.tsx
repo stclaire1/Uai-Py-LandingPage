@@ -8,6 +8,7 @@ import { RepoRedirect } from "./components/sections/RepoRedirect";
 import { CTA} from "./components/sections/CTA";
 import { TechEvents } from "./components/sections/TechEvents";
 import { Demo } from "./components/sections/Demo";
+import { PublicProjects } from "./components/sections/PublicProjects";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
           <Hero />
           <ProjectConcept />
           <Features />
+          <PublicProjects />
           <Team />
           <RepoRedirect />
           <CTA />
