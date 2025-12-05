@@ -1,29 +1,44 @@
 import { Device, Actor } from '@/services/uaipy-api/types';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { CustomChart } from '@/components/ui/CustomChart';
 import { SensorChartSwitcher } from '@/components/ui/SensorChartSwitcher';
-import { Activity, Loader2, Clock } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { Activity, Clock } from 'lucide-react';
 import { usePublicProjectData } from '@/hooks/usePublicProjects';
+import { getSensorColor, getDeviceStatusColor, isPrecipitationSensor } from '@/utils/sensorUtils';
+import { formatTimestamp } from '@/utils/dateUtils';
 
 interface ProjectChartsProps {
     projectId: string;
 }
 
+type ChartType = 'line' | 'bar';
+
 export function ProjectCharts({ projectId }: ProjectChartsProps) {
-    const [sensorChartTypes, setSensorChartTypes] = useState<Record<string, "line" | "bar">>({});
+    const [sensorChartTypes, setSensorChartTypes] = useState<Record<string, ChartType>>({});
     const { data: queryData, isLoading, error, isFetching } = usePublicProjectData(projectId, true);
     const project = queryData?.project;
     const timestamp = queryData?.timestamp;
 
+    const allActors = useMemo(() => {
+        if (!project?.devices) return [];
+        
+        const actors: Array<{ device: Device; actor: Actor }> = [];
+        project.devices.forEach(device => {
+            device.actors.forEach(actor => {
+                if (actor.data && actor.data.length > 0) {
+                    actors.push({ device, actor });
+                }
+            });
+        });
+        return actors;
+    }, [project]);
+
     if (isLoading) {
         return (
             <div className="bg-white dark:bg-gray-800 rounded-lg p-8 text-center">
-                <div className="flex items-center justify-center gap-3">
-                    <Loader2 className="h-6 w-6 animate-spin text-gray-600 dark:text-gray-400" />
-                    <p className="text-gray-600 dark:text-gray-400 text-lg">
-                        Carregando dados do projeto...
-                    </p>
-                </div>
+                <LoadingSpinner message="Carregando dados do projeto..." size="md" />
             </div>
         );
     }
@@ -31,9 +46,9 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
     if (error) {
         return (
             <div className="bg-white dark:bg-gray-800 rounded-lg p-8 text-center">
-                <p className="text-red-400 text-lg">
-                    {error instanceof Error ? error.message : 'Erro ao carregar dados do projeto'}
-                </p>
+                <ErrorMessage 
+                    message={error instanceof Error ? error.message : 'Erro ao carregar dados do projeto'} 
+                />
             </div>
         );
     }
@@ -48,63 +63,6 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
         );
     }
 
-    const getStatusColor = (status: string) => {
-        switch (status.toLowerCase()) {
-            case 'online':
-                return 'bg-green-500';
-            case 'offline':
-                return 'bg-red-500';
-            default:
-                return 'bg-gray-500';
-        }
-    };
-
-    const isChuva = (actorName: string) => {
-        return actorName.toLowerCase().includes("rain");
-    };
-
-    const getSensorColor = (actorName: string): string => {
-        const lowerActorName = actorName.toLowerCase().replace(/_/g, " ");
-
-        if (lowerActorName.includes("air tem") || lowerActorName.includes("temperature")) {
-            return "#ff6b6b";
-        }
-        if (lowerActorName.includes("soil tem")) {
-            return "#8dc9ab";
-        }
-        if (lowerActorName.includes("air hum") || lowerActorName.includes("humidity")) {
-            return "#b974db";
-        }
-        if (lowerActorName.includes("soil hum") || lowerActorName.includes("moisture")) {
-            return "#45b7d1";
-        }
-        if (lowerActorName.includes("rain")) {
-            return "#feca57";
-        }
-        if (lowerActorName.includes("co2")) {
-            return "#95a5a6";
-        }
-        if (lowerActorName.includes("pm25") || lowerActorName.includes("pm10")) {
-            return "#e74c3c";
-        }
-
-        return "#3b82f6";
-    };
-
-    const getAllActors = (): Array<{ device: Device; actor: Actor }> => {
-        const allActors: Array<{ device: Device; actor: Actor }> = [];
-        project.devices.forEach(device => {
-            device.actors.forEach(actor => {
-                if (actor.data && actor.data.length > 0) {
-                    allActors.push({ device, actor });
-                }
-            });
-        });
-        return allActors;
-    };
-
-    const allActors = getAllActors();
-
     if (allActors.length === 0) {
         return (
             <div className="bg-white dark:bg-gray-800 rounded-lg p-8 text-center">
@@ -114,19 +72,6 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
             </div>
         );
     }
-
-    const formatTimestamp = (timestamp: string | undefined) => {
-        if (!timestamp) return 'N/A';
-        const date = new Date(timestamp);
-        return date.toLocaleString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-    };
 
     return (
         <div className="space-y-6">
@@ -164,14 +109,13 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                 {allActors.map(({ device, actor }) => {
                     if (!actor.data || actor.data.length === 0) return null;
                     
-                    const onlyBar = isChuva(actor.actorName);
-                    const chartType = onlyBar
-                        ? "bar"
-                        : sensorChartTypes[actor.actorId] || "line";
+                    const isPrecipitation = isPrecipitationSensor(actor.actorName);
+                    const chartType: ChartType = isPrecipitation
+                        ? 'bar'
+                        : sensorChartTypes[actor.actorId] || 'line';
+                    
                     const sortedData = [...actor.data].sort(
-                        (a, b) =>
-                            new Date(a.timestamp).getTime() -
-                            new Date(b.timestamp).getTime()
+                        (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
                     );
                     
                     if (sortedData.length === 0) return null;
@@ -182,6 +126,10 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                     const latestValue = sortedData[sortedData.length - 1];
                     const minValue = sortedData.find(d => d.value === dataMin) || sortedData[0];
                     const maxValue = sortedData.find(d => d.value === dataMax) || sortedData[0];
+
+                    const formatValue = (value: number): string => {
+                        return typeof value === 'number' ? value.toFixed(1) : String(value);
+                    };
 
                     return (
                         <div
@@ -197,7 +145,7 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                                         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                                             <Activity className="h-4 w-4" />
                                             <span>{device.deviceName}</span>
-                                            <span className={`h-2 w-2 rounded-full ${getStatusColor(device.status)}`} />
+                                            <span className={`h-2 w-2 rounded-full ${getDeviceStatusColor(device.status)}`} />
                                             <span className="capitalize">{device.status}</span>
                                         </div>
                                     </div>
@@ -208,20 +156,20 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                                         <div className="flex items-center justify-between">
                                             <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Valor Atual</span>
                                             <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                                                {typeof latestValue.value === 'number' ? latestValue.value.toFixed(1) : latestValue.value} {actor.unitOfMeasurement}
+                                                {formatValue(latestValue.value)} {actor.unitOfMeasurement}
                                             </span>
                                         </div>
                                         <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
                                             <div className="text-sm">
                                                 <span className="text-gray-500 dark:text-gray-400">Mín: </span>
                                                 <span className="font-semibold text-gray-700 dark:text-gray-300">
-                                                    {typeof minValue.value === 'number' ? minValue.value.toFixed(1) : minValue.value}
+                                                    {formatValue(minValue.value)}
                                                 </span>
                                             </div>
                                             <div className="text-sm">
                                                 <span className="text-gray-500 dark:text-gray-400">Máx: </span>
                                                 <span className="font-semibold text-gray-700 dark:text-gray-300">
-                                                    {typeof maxValue.value === 'number' ? maxValue.value.toFixed(1) : maxValue.value}
+                                                    {formatValue(maxValue.value)}
                                                 </span>
                                             </div>
                                         </div>
@@ -234,7 +182,7 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                                 onChange={(type) =>
                                     setSensorChartTypes((prev) => ({ ...prev, [actor.actorId]: type }))
                                 }
-                                onlyBar={onlyBar}
+                                onlyBar={isPrecipitation}
                             />
                             
                             <div className="mt-6">

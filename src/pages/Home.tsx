@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/contexts";
 import { Layout } from "@/components/layout/Layout";
 import { Features } from "@/components/sections/Features";
 import { Hero } from "@/components/sections/Hero";
@@ -12,19 +11,17 @@ import { PublicProjects } from "@/components/sections/PublicProjects";
 
 export const Home = () => {
     return (
-        <ThemeProvider>
-            <Layout>
-                <Hero />
-                <PublicProjects />
-                <ProjectConcept />
-                <Features />
-                <Team />
-                <RepoRedirect />
-                <CTA />
-                <TechEvents />
-                <Demo />
-            </Layout>
-        </ThemeProvider>
+        <Layout>
+            <Hero />
+            <PublicProjects />
+            <ProjectConcept />
+            <Features />
+            <Team />
+            <RepoRedirect />
+            <CTA />
+            <TechEvents />
+            <Demo />
+        </Layout>
     );
 }
 
