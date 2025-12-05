@@ -21,7 +21,10 @@ export function usePublicProjectData(projectId: string | null, enabled: boolean 
             if (!projectId) throw new Error('ProjectId é necessário');
             const response = await publicProjectsService.getProjectData(projectId);
             if (response.success && response.data) {
-                return response.data;
+                return {
+                    project: response.data,
+                    timestamp: response.timestamp
+                };
             }
             throw new Error('Erro ao carregar dados do projeto');
         },

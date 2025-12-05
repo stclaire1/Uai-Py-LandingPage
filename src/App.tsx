@@ -14,9 +14,9 @@ function App() {
     return (
         <ThemeProvider>
           <Hero />
+          <PublicProjects />
           <ProjectConcept />
           <Features />
-          <PublicProjects />
           <Team />
           <RepoRedirect />
           <CTA />

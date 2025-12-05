@@ -2,7 +2,7 @@ import { Device, Actor } from '@/services/uaipy-api/types';
 import { useState } from 'react';
 import { CustomChart } from '@/components/ui/CustomChart';
 import { SensorChartSwitcher } from '@/components/ui/SensorChartSwitcher';
-import { Activity, Loader2 } from 'lucide-react';
+import { Activity, Loader2, Clock } from 'lucide-react';
 import { usePublicProjectData } from '@/hooks/usePublicProjects';
 
 interface ProjectChartsProps {
@@ -11,7 +11,9 @@ interface ProjectChartsProps {
 
 export function ProjectCharts({ projectId }: ProjectChartsProps) {
     const [sensorChartTypes, setSensorChartTypes] = useState<Record<string, "line" | "bar">>({});
-    const { data: project, isLoading, error, isFetching } = usePublicProjectData(projectId, true);
+    const { data: queryData, isLoading, error, isFetching } = usePublicProjectData(projectId, true);
+    const project = queryData?.project;
+    const timestamp = queryData?.timestamp;
 
     if (isLoading) {
         return (
@@ -113,6 +115,19 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
         );
     }
 
+    const formatTimestamp = (timestamp: string | undefined) => {
+        if (!timestamp) return 'N/A';
+        const date = new Date(timestamp);
+        return date.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    };
+
     return (
         <div className="space-y-6">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
@@ -135,6 +150,14 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                         </div>
                     </div>
                 </div>
+                {timestamp && (
+                    <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <Clock className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                            Última atualização: <span className="font-semibold">{formatTimestamp(timestamp)}</span>
+                        </span>
+                    </div>
+                )}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-8">
