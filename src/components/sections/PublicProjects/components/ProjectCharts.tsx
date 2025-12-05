@@ -20,6 +20,9 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
     const { data: queryData, isLoading, error, isFetching } = usePublicProjectData(projectId, true);
     const project = queryData?.project;
     const timestamp = queryData?.timestamp;
+    
+    // Validação explícita para garantir que timestamp existe
+    const hasValidTimestamp = timestamp && typeof timestamp === 'string' && timestamp.trim() !== '';
 
     const allActors = useMemo(() => {
         if (!project?.devices) return [];
@@ -95,7 +98,7 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                         </div>
                     </div>
                 </div>
-                {timestamp && (
+                {hasValidTimestamp && (
                     <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <Clock className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                         <span className="text-sm text-gray-600 dark:text-gray-400">

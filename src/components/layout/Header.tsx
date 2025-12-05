@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '@/assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    // Fecha o menu quando a rota muda
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location.pathname]);
 
     return (
         <header className="bg-white dark:bg-gray-900">
@@ -31,7 +37,7 @@ export const Header = () => {
                             <Menu className="w-5 h-5" />
                         )}
                     </button>
-                    <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:block md:w-auto`} id="navbar-default">
+                    <div className={`${isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'} overflow-hidden transition-all duration-150 ease-in-out w-full md:max-h-screen md:opacity-100 md:w-auto`} id="navbar-default">
                         <ul className="font-normal flex flex-col p-4 md:p-0 mt-4 border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                             <li>
                                 <a href="/#projectConcept" className="block py-2 px-3 text-uaipy-primary md:border-b-2 md:border-transparent md:hover:border-uaipy-primary md:transition duration-200 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Sobre o projeto</a>
