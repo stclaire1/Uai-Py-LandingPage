@@ -4,8 +4,7 @@ import { PublicProjectsResponse, ProjectDataResponse, SensorData } from './types
 function generateSensorData(
     baseValue: number,
     variation: number,
-    count: number = 20,
-    unit: string = ''
+    count: number = 20
 ): SensorData[] {
     const data: SensorData[] = [];
     const now = new Date();
@@ -61,8 +60,7 @@ const station1: PublicProjectsResponse = {
                             }
                         ]
                     }
-                ],
-                total: 1
+                ]
             }
         ],
         total: 1
@@ -118,8 +116,7 @@ const station2: PublicProjectsResponse = {
                             }
                         ]
                     }
-                ],
-                total: 1
+                ]
             }
         ],
         total: 1
@@ -134,7 +131,7 @@ const station3: PublicProjectsResponse = {
         projects: [
             {
                 projectId: 'station-003',
-                projectName: 'Estação Meteorológica',
+                projectName: 'Estação Meteorológica Montanhosa',
                 devices: [
                     {
                         deviceId: 'device-003',
@@ -169,8 +166,7 @@ const station3: PublicProjectsResponse = {
                             }
                         ]
                     }
-                ],
-                total: 1
+                ]
             }
         ],
         total: 1
