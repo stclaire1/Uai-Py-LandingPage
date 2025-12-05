@@ -189,7 +189,7 @@ export const mockPublicProjects: PublicProjectsResponse = {
 };
 
 // Armazena o estado atual dos dados de cada projeto
-const projectDataState: Record<string, any> = {};
+const projectDataState: Record<string, PublicProject> = {};
 
 // Função para obter dados de um projeto específico com atualização dinâmica
 export function getMockProjectData(projectId: string): ProjectDataResponse {
@@ -217,11 +217,11 @@ export function getMockProjectData(projectId: string): ProjectDataResponse {
     const currentProject = projectDataState[projectId];
     
     // Atualiza os dados com valores mais recentes para simular atualização em tempo real
-    const updatedProject = {
+    const updatedProject: PublicProject = {
         ...currentProject,
-        devices: currentProject.devices.map((device: any) => ({
+        devices: currentProject.devices.map((device) => ({
             ...device,
-            actors: device.actors.map((actor: any) => {
+            actors: device.actors.map((actor) => {
                 const lastData = actor.data[actor.data.length - 1];
                 const baseValue = lastData.value;
                 

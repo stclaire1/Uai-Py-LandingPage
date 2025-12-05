@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { PublicProject } from '@/services/uaipy-api/types';
 
 /**
@@ -8,11 +8,16 @@ import { PublicProject } from '@/services/uaipy-api/types';
 export const useSelectedProject = (projects: PublicProject[]) => {
   const [selectedProjectId, setSelectedProjectId] = useState<string>('');
 
+  // Memoiza o primeiro projeto para evitar recálculos desnecessários
+  const firstProjectId = useMemo(() => {
+    return projects.length > 0 ? projects[0].projectId : '';
+  }, [projects]);
+
   useEffect(() => {
-    if (projects.length > 0 && !selectedProjectId) {
-      setSelectedProjectId(projects[0].projectId);
+    if (firstProjectId && !selectedProjectId) {
+      setSelectedProjectId(firstProjectId);
     }
-  }, [projects, selectedProjectId]);
+  }, [firstProjectId, selectedProjectId]);
 
   return {
     selectedProjectId,

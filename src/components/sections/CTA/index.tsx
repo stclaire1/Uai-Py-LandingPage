@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { useState } from "react"
 import * as z from "zod"
+import { logger } from '@/utils/logger'
 
 export const CTA = () => {
   const formSchema = z.object({
@@ -89,7 +90,7 @@ _Enviado através do site da UAI.py_`
       setTimeout(() => setIsSuccess(false), 5000)
       
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error)
+      logger.error("Erro ao enviar formulário:", error)
     } finally {
       setIsSubmitting(false)
     }

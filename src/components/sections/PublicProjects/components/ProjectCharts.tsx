@@ -1,5 +1,5 @@
-import { Device, Actor } from '@/services/uaipy-api/types';
-import { useState, useMemo } from 'react';
+import { Device, Actor, SensorData } from '@/services/uaipy-api/types';
+import { useState, useMemo, useCallback } from 'react';
 import { CustomChart } from '@/components/ui/CustomChart';
 import { SensorChartSwitcher } from '@/components/ui/SensorChartSwitcher';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
@@ -22,7 +22,9 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
     const timestamp = queryData?.timestamp;
     
     // Validação explícita para garantir que timestamp existe
-    const hasValidTimestamp = timestamp && typeof timestamp === 'string' && timestamp.trim() !== '';
+    const hasValidTimestamp = useMemo(() => {
+        return timestamp && typeof timestamp === 'string' && timestamp.trim() !== '';
+    }, [timestamp]);
 
     const allActors = useMemo(() => {
         if (!project?.devices) return [];
@@ -37,6 +39,16 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
         });
         return actors;
     }, [project]);
+
+    // Memoiza a função de atualização do tipo de gráfico
+    const handleChartTypeChange = useCallback((actorId: string, type: ChartType) => {
+        setSensorChartTypes((prev) => ({ ...prev, [actorId]: type }));
+    }, []);
+
+    // Função auxiliar para formatar valores
+    const formatValue = useCallback((value: number): string => {
+        return typeof value === 'number' ? value.toFixed(1) : String(value);
+    }, []);
 
     if (isLoading) {
         return (
@@ -117,22 +129,20 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                         ? 'bar'
                         : sensorChartTypes[actor.actorId] || 'line';
                     
+                    // Ordena os dados por timestamp
                     const sortedData = [...actor.data].sort(
                         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
                     );
                     
                     if (sortedData.length === 0) return null;
                     
+                    // Calcula valores estatísticos
                     const values = sortedData.map(d => d.value);
                     const dataMin = values.length > 0 ? Math.min(...values) : 0;
                     const dataMax = values.length > 0 ? Math.max(...values) : 0;
                     const latestValue = sortedData[sortedData.length - 1];
                     const minValue = sortedData.find(d => d.value === dataMin) || sortedData[0];
                     const maxValue = sortedData.find(d => d.value === dataMax) || sortedData[0];
-
-                    const formatValue = (value: number): string => {
-                        return typeof value === 'number' ? value.toFixed(1) : String(value);
-                    };
 
                     return (
                         <div
@@ -182,9 +192,7 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
 
                             <SensorChartSwitcher
                                 chartType={chartType}
-                                onChange={(type) =>
-                                    setSensorChartTypes((prev) => ({ ...prev, [actor.actorId]: type }))
-                                }
+                                onChange={(type) => handleChartTypeChange(actor.actorId, type)}
                                 onlyBar={isPrecipitation}
                             />
                             
