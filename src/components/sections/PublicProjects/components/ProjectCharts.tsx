@@ -6,6 +6,7 @@ import { formatTimestamp, isValidTimestamp } from '@/utils/dateUtils';
 import { extractAllActors } from '@/utils/projectUtils';
 import { SensorChartCard } from './SensorChartCard';
 import { UI_MESSAGES } from '@/constants/messages';
+import { DEVICE_STATUS_COLORS_HEX } from '@/constants/colors';
 
 interface ProjectChartsProps {
     projectId: string;
@@ -52,7 +53,7 @@ export function ProjectCharts({ projectId }: ProjectChartsProps) {
                                     </h3>
                                     {isFetching && (
                                         <span className="flex items-center gap-2 px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs font-medium rounded-full">
-                                            <span className="h-2 w-2 bg-[#067F32] rounded-full animate-pulse"></span>
+                                            <span className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: DEVICE_STATUS_COLORS_HEX.ONLINE }}></span>
                                             Atualizando...
                                         </span>
                                     )}

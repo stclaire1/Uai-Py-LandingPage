@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { SensorData } from '@/services/uaipy-api/types';
 import { logger } from '@/utils/logger';
+import { SENSOR_COLORS, UI_COLORS } from '@/constants/colors';
 
 /**
  * Tipo para dados do gráfico que devem ter pelo menos as chaves xKey e yKey
@@ -50,7 +51,7 @@ export function CustomChart({
   unit = "",
   dataMin = 0,
   dataMax = 0,
-  color = "#3b82f6",
+  color = SENSOR_COLORS.DEFAULT,
 }: CustomChartProps) {
   const xAxisConfig = {
     dataKey: xKey,
@@ -124,8 +125,8 @@ export function CustomChart({
             labelFormatter={tooltipConfig.labelFormatter}
             formatter={(value: number) => tooltipConfig.valueFormatter(value)}
             contentStyle={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #e2e8f0",
+              backgroundColor: UI_COLORS.TOOLTIP_BG,
+              border: `1px solid ${UI_COLORS.TOOLTIP_BORDER}`,
               borderRadius: "6px",
               fontSize: "14px",
             }}
@@ -159,8 +160,8 @@ export function CustomChart({
             labelFormatter={tooltipConfig.labelFormatter}
             formatter={(value: number) => tooltipConfig.valueFormatter(value)}
             contentStyle={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #e2e8f0",
+              backgroundColor: UI_COLORS.TOOLTIP_BG,
+              border: `1px solid ${UI_COLORS.TOOLTIP_BORDER}`,
               borderRadius: "6px",
               fontSize: "14px",
             }}

@@ -18,9 +18,14 @@ type ContentBlockTextProps = {
 };
 
 const ContentBlock = ({ marginDirection, title, subheading, description, flexDirection, showBtn, btnText, btnVariant, btnClassName, imgClassName, carouselImages, staticImage, linkTo }: ContentBlockTextProps) => {
+    const hasCarousel = carouselImages && carouselImages.length > 0;
+    const finalFlexDirection = flexDirection || (hasCarousel 
+        ? 'flex-col-reverse md:flex-row md:justify-between' 
+        : 'flex-col md:flex-row md:justify-between');
+    
     return (
-        <div className={`flex md:justify-between items-center ${flexDirection}`}>
-            {carouselImages && carouselImages.length > 0 ? (
+        <div className={`flex items-center ${finalFlexDirection}`}>
+            {hasCarousel ? (
                 <Carousel images={carouselImages} imgClassName={imgClassName}/>
             ) : staticImage ? (
                 <img

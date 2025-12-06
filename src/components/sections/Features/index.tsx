@@ -2,13 +2,14 @@ import Card from "@/components/ui/Card";
 import { QueryStateHandler } from "@/components/ui/QueryStateHandler";
 import { useFeatures } from "@/hooks/useFeatures";
 import { UI_MESSAGES } from "@/constants/messages";
+import { BRAND_COLORS } from "@/constants/colors";
 
 export const Features = () => {
     const { data: features = [], isLoading, error } = useFeatures();
 
     return (
       <section className="px-10 my-16 md:px-15 md:my-20 lg:px-20 lg:mb-26 xl:px-35">
-          <div className="bg-[#000932] rounded-lg py-10 container mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+          <div className="rounded-lg py-10 container mx-auto max-w-7xl px-6 sm:px-8 lg:px-10" style={{ backgroundColor: BRAND_COLORS.PROJECTS_BG }}>
               <QueryStateHandler
                   isLoading={isLoading}
                   error={error}
@@ -35,10 +36,10 @@ export const Features = () => {
                   }
               >
                   <div className="max-w-4xl mx-auto text-center">
-                      <h1 className="text-2xl sm:text-4x font-bold text-[white]">
+                      <h1 className="text-2xl sm:text-4x font-bold text-white">
                           CONHEÇA POSSÍVEIS APLICAÇÕES!
                       </h1>
-                      <p className="text-sm mt-8 text-[white] lg:text-base">
+                      <p className="text-sm mt-8 text-white lg:text-base">
                         Compacta e eficiente, a UAI.py é capaz de coletar, processar e transmitir informações em tempo real, adaptando-se a diferentes necessidades e contextos. É possível utilizá-la como base para diversas aplicações inteligentes e conectadas. Abaixo temos alguns exemplos de usabilidade:
                       </p>
                   </div>

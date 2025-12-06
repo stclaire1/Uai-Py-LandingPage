@@ -14,15 +14,13 @@ export function useFeatures() {
     queryKey: ['features'],
     queryFn: async () => {
       try {
-        // Valida os dados do JSON usando Zod
         const validatedFeatures = featuresSchema.parse(featuresData.features);
         
-        // Transforma para o tipo Feature (já validado pelo schema)
         const typedFeatures: Feature[] = validatedFeatures.map((feature) => ({
           id: feature.id,
           title: feature.title,
           description: feature.description,
-          icon: feature.icon as Feature['icon'], // Type assertion segura após validação Zod
+          icon: feature.icon as Feature['icon'],
           external: feature.external ?? true,
         }));
         
@@ -32,7 +30,7 @@ export function useFeatures() {
         throw new Error('Erro ao carregar features: dados inválidos');
       }
     },
-    staleTime: Infinity, // Dados estáticos nunca ficam stale
+    staleTime: Infinity,
   });
 }
 

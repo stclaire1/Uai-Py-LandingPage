@@ -2,6 +2,7 @@ import logo from '@/assets/logo.png';
 import { Mail } from 'lucide-react'
 import iftm from '@/assets/iftm.png'
 import receita from '@/assets/receitaFederal.svg'
+import { UI_COLORS } from '@/constants/colors';
 
 export const Footer = () => {
     return (
@@ -19,7 +20,7 @@ export const Footer = () => {
                     <p className="border-l border-black px-[12px] uppercase">Entre em contato conosco</p>
                     <address className="flex flex-col items-start mb-8 mt-4 not-italic">
                         <a href="mailto:projetouaipy@gmail.com" className="flex items-center">
-                            <Mail size={24} color="#000" strokeWidth={1.5} />
+                            <Mail size={24} color={UI_COLORS.BLACK} strokeWidth={1.5} />
                             <p className="ml-[10px]">projetouaipy@gmail.com</p>
                         </a>
                     </address>

@@ -15,7 +15,6 @@ const isProduction = import.meta.env.PROD;
  * Configuração do logger
  */
 const LOGGER_CONFIG = {
-  // Em produção, apenas error e warn são logados
   enableDebugInProduction: false,
   enableInfoInProduction: false,
 } as const;
@@ -29,10 +28,7 @@ class Logger {
     const prefix = `[${timestamp}] [ERROR]`;
     console.error(prefix, message, ...args);
     
-    // Em produção, você pode enviar para um serviço de monitoramento
     if (isProduction) {
-      // Exemplo: enviar para Sentry, LogRocket, etc.
-      // Sentry.captureException(new Error(message), { extra: args });
     }
   }
 
@@ -71,18 +67,12 @@ class Logger {
     console.debug(prefix, message, ...args);
   }
 
-  /**
-   * Agrupa logs relacionados (útil para debug)
-   */
   group(label: string): void {
     if (isDevelopment) {
       console.group(label);
     }
   }
 
-  /**
-   * Finaliza um grupo de logs
-   */
   groupEnd(): void {
     if (isDevelopment) {
       console.groupEnd();
@@ -90,8 +80,5 @@ class Logger {
   }
 }
 
-// Exporta uma instância singleton do logger
 export const logger = new Logger();
-
-// Exporta também a classe para casos especiais
 export { Logger };

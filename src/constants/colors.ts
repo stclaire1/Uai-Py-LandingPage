@@ -13,7 +13,16 @@ export const SENSOR_COLORS = {
 } as const;
 
 /**
- * Cores de status dos dispositivos
+ * Cores de status dos dispositivos (valores hex)
+ */
+export const DEVICE_STATUS_COLORS_HEX = {
+  ONLINE: '#067F32',
+  OFFLINE: '#C41C1C',
+  DEFAULT: '#6b7280',
+} as const;
+
+/**
+ * Cores de status dos dispositivos (classes Tailwind)
  */
 export const DEVICE_STATUS_COLORS = {
   ONLINE: 'bg-[#067F32]',
@@ -22,7 +31,34 @@ export const DEVICE_STATUS_COLORS = {
 } as const;
 
 /**
- * Cor de fundo do container principal de projetos
+ * Cores de marca
  */
-export const PROJECTS_CONTAINER_BG = '#000932';
+export const BRAND_COLORS = {
+  PRIMARY: '#030820',
+  PROJECTS_BG: '#000932',
+} as const;
+
+/**
+ * Cores de UI (tooltips, backgrounds, etc)
+ */
+export const UI_COLORS = {
+  TOOLTIP_BG: '#f8fafc',
+  TOOLTIP_BORDER: '#e2e8f0',
+  WHITE_OFF: '#FFFFFA',
+  BLACK: '#000000',
+} as const;
+
+/**
+ * Cores de botões
+ */
+export const BUTTON_COLORS = {
+  YELLOW: '#FFBE2E',
+  YELLOW_HOVER: '#E29C00',
+} as const;
+
+/**
+ * Cor de fundo do container principal de projetos
+ * @deprecated Use BRAND_COLORS.PROJECTS_BG instead
+ */
+export const PROJECTS_CONTAINER_BG = BRAND_COLORS.PROJECTS_BG;
 

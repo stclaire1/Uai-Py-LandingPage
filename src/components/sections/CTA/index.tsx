@@ -32,7 +32,6 @@ export const CTA = () => {
       await sendMessage(formValues.name, formValues.message)
       resetForm()
     } catch (error) {
-      // Error is already logged and exposed by useWhatsApp hook
     }
   }
 
