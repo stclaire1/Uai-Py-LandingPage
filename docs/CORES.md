@@ -307,6 +307,52 @@ Cores para feedback de ações do usuário.
 | `action.primary` | Ação principal | `#363636` | `#EBEBEB` | `--primary` |
 | `action.secondary` | Ação secundária | `#F7F7F7` | `#464646` | `--secondary` |
 
+**Visualização das cores (Light Mode):**
+
+![Destructive](https://img.shields.io/badge/Destructive-E11D48?style=for-the-badge&logoColor=white)
+![Primary](https://img.shields.io/badge/Primary-363636?style=for-the-badge&logoColor=white)
+![Secondary](https://img.shields.io/badge/Secondary-F7F7F7?style=for-the-badge&logoColor=000000)
+
+**Visualização das cores (Dark Mode):**
+
+![Destructive Dark](https://img.shields.io/badge/Destructive-EF4444?style=for-the-badge&logoColor=white)
+![Primary Dark](https://img.shields.io/badge/Primary-EBEBEB?style=for-the-badge&logoColor=000000)
+![Secondary Dark](https://img.shields.io/badge/Secondary-464646?style=for-the-badge&logoColor=white)
+
+**Uso:**
+```css
+/* Via variáveis CSS */
+.destructive-button {
+  background-color: var(--destructive);
+  color: var(--primary-foreground);
+}
+
+.primary-button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.secondary-button {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+```
+
+```typescript
+// Via Tailwind
+<button className="bg-destructive text-primary-foreground">
+  Excluir
+</button>
+
+<button className="bg-primary text-primary-foreground">
+  Salvar
+</button>
+
+<button className="bg-secondary text-secondary-foreground">
+  Cancelar
+</button>
+```
+
 ---
 
 ## Cores de Dados
@@ -379,6 +425,14 @@ Cores para visualização de dados em gráficos e dashboards.
 | `chart.color.4` | Amarelo | `#FFA000` | Série de dados 4 |
 | `chart.color.5` | Laranja | `#FF6F00` | Série de dados 5 |
 
+**Visualização das cores (Light Mode):**
+
+![Chart 1](https://img.shields.io/badge/Chart%201-D35F17?style=for-the-badge&logoColor=white)
+![Chart 2](https://img.shields.io/badge/Chart%202-1E88E5?style=for-the-badge&logoColor=white)
+![Chart 3](https://img.shields.io/badge/Chart%203-0D47A1?style=for-the-badge&logoColor=white)
+![Chart 4](https://img.shields.io/badge/Chart%204-FFA000?style=for-the-badge&logoColor=000000)
+![Chart 5](https://img.shields.io/badge/Chart%205-FF6F00?style=for-the-badge&logoColor=white)
+
 #### Dark Mode
 
 | Token | Cor | Hex | Uso |
@@ -389,15 +443,67 @@ Cores para visualização de dados em gráficos e dashboards.
 | `chart.color.4` | Rosa | `#D946EF` | Série de dados 4 |
 | `chart.color.5` | Vermelho | `#F43F5E` | Série de dados 5 |
 
+**Visualização das cores (Dark Mode):**
+
+![Chart 1 Dark](https://img.shields.io/badge/Chart%201-7C3AED?style=for-the-badge&logoColor=white)
+![Chart 2 Dark](https://img.shields.io/badge/Chart%202-3B82F6?style=for-the-badge&logoColor=white)
+![Chart 3 Dark](https://img.shields.io/badge/Chart%203-FF6F00?style=for-the-badge&logoColor=white)
+![Chart 4 Dark](https://img.shields.io/badge/Chart%204-D946EF?style=for-the-badge&logoColor=white)
+![Chart 5 Dark](https://img.shields.io/badge/Chart%205-F43F5E?style=for-the-badge&logoColor=white)
+
 **Uso:**
 ```css
 /* Via variável CSS */
-.chart-line {
+.chart-line-1 {
   stroke: var(--chart-1);
+  fill: var(--chart-1);
 }
 
-/* Via Tailwind */
-<div className="bg-chart-1 text-white">...</div>
+.chart-line-2 {
+  stroke: var(--chart-2);
+  fill: var(--chart-2);
+}
+
+.chart-bar {
+  background-color: var(--chart-3);
+}
+```
+
+```typescript
+// Via Tailwind
+<div className="bg-chart-1 text-white p-2 rounded">
+  Série 1
+</div>
+
+<div className="bg-chart-2 text-white p-2 rounded">
+  Série 2
+</div>
+
+// Em gráficos Recharts
+<Line 
+  dataKey="value" 
+  stroke="var(--chart-1)" 
+  strokeWidth={2}
+/>
+
+<Bar 
+  dataKey="value" 
+  fill="var(--chart-2)"
+/>
+```
+
+```typescript
+// Exemplo completo com múltiplas séries
+const chartData = [
+  { name: 'Jan', serie1: 100, serie2: 200, serie3: 150 },
+  { name: 'Fev', serie1: 120, serie2: 180, serie3: 160 },
+];
+
+<LineChart data={chartData}>
+  <Line dataKey="serie1" stroke="var(--chart-1)" />
+  <Line dataKey="serie2" stroke="var(--chart-2)" />
+  <Line dataKey="serie3" stroke="var(--chart-3)" />
+</LineChart>
 ```
 
 ---
@@ -441,6 +547,80 @@ Os tokens seguem o padrão: `{context}.{property}`
 | `theme.light.ring` | `--ring` | `#B4B4B4` | Focus rings |
 | `theme.light.description` | `--description` | `#aaa8a8` | Texto descritivo |
 
+**Visualização dos tokens base (Light Mode):**
+
+![Background](https://img.shields.io/badge/Background-FFFFFF?style=for-the-badge&logoColor=000000)
+![Foreground](https://img.shields.io/badge/Foreground-242424?style=for-the-badge&logoColor=white)
+![Card](https://img.shields.io/badge/Card-FFFFFF?style=for-the-badge&logoColor=000000)
+![Primary](https://img.shields.io/badge/Primary-363636?style=for-the-badge&logoColor=white)
+![Secondary](https://img.shields.io/badge/Secondary-F7F7F7?style=for-the-badge&logoColor=000000)
+![Muted](https://img.shields.io/badge/Muted-F7F7F7?style=for-the-badge&logoColor=000000)
+![Accent](https://img.shields.io/badge/Accent-F7F7F7?style=for-the-badge&logoColor=000000)
+![Destructive](https://img.shields.io/badge/Destructive-E11D48?style=for-the-badge&logoColor=white)
+![Border](https://img.shields.io/badge/Border-EBEBEB?style=for-the-badge&logoColor=000000)
+![Input](https://img.shields.io/badge/Input-EBEBEB?style=for-the-badge&logoColor=000000)
+![Ring](https://img.shields.io/badge/Ring-B4B4B4?style=for-the-badge&logoColor=000000)
+![Description](https://img.shields.io/badge/Description-aaa8a8?style=for-the-badge&logoColor=000000)
+
+**Uso dos tokens base (Light Mode):**
+```css
+/* Via variáveis CSS */
+.main-container {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.card {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+}
+
+.primary-button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.secondary-button {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.input-field {
+  border: 1px solid var(--input);
+  background-color: var(--background);
+}
+
+.input-field:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+```
+
+```typescript
+// Via Tailwind
+<div className="bg-background text-foreground">
+  <div className="bg-card text-card-foreground border-border rounded-lg p-4">
+    <h2 className="text-foreground font-bold">Título</h2>
+    <p className="text-muted-foreground">Texto secundário</p>
+    <p className="text-description">Texto descritivo</p>
+    
+    <button className="bg-primary text-primary-foreground px-4 py-2 rounded">
+      Ação Principal
+    </button>
+    
+    <button className="bg-secondary text-secondary-foreground px-4 py-2 rounded">
+      Ação Secundária
+    </button>
+    
+    <input 
+      className="border-input bg-background focus:ring-ring"
+      type="text"
+    />
+  </div>
+</div>
+```
+
 #### Tokens de Sidebar (Light Mode)
 
 | Token | Variável CSS | Hex | Propósito |
@@ -453,6 +633,53 @@ Os tokens seguem o padrão: `{context}.{property}`
 | `theme.light.sidebar-accent-foreground` | `--sidebar-accent-foreground` | `#363636` | Texto sobre accent na sidebar |
 | `theme.light.sidebar-border` | `--sidebar-border` | `#EBEBEB` | Bordas da sidebar |
 | `theme.light.sidebar-ring` | `--sidebar-ring` | `#B4B4B4` | Focus rings na sidebar |
+
+**Visualização dos tokens de sidebar (Light Mode):**
+
+![Sidebar](https://img.shields.io/badge/Sidebar-FCFCFC?style=for-the-badge&logoColor=000000)
+![Sidebar Foreground](https://img.shields.io/badge/Sidebar%20Foreground-242424?style=for-the-badge&logoColor=white)
+![Sidebar Primary](https://img.shields.io/badge/Sidebar%20Primary-363636?style=for-the-badge&logoColor=white)
+![Sidebar Accent](https://img.shields.io/badge/Sidebar%20Accent-F7F7F7?style=for-the-badge&logoColor=000000)
+![Sidebar Border](https://img.shields.io/badge/Sidebar%20Border-EBEBEB?style=for-the-badge&logoColor=000000)
+![Sidebar Ring](https://img.shields.io/badge/Sidebar%20Ring-B4B4B4?style=for-the-badge&logoColor=000000)
+
+**Uso dos tokens de sidebar (Light Mode):**
+```css
+/* Via variáveis CSS */
+.sidebar {
+  background-color: var(--sidebar);
+  color: var(--sidebar-foreground);
+  border-right: 1px solid var(--sidebar-border);
+}
+
+.sidebar-item-primary {
+  background-color: var(--sidebar-primary);
+  color: var(--sidebar-primary-foreground);
+}
+
+.sidebar-item-accent {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+
+.sidebar-item:focus {
+  outline: 2px solid var(--sidebar-ring);
+}
+```
+
+```typescript
+// Via Tailwind
+<aside className="bg-sidebar text-sidebar-foreground border-r border-sidebar-border">
+  <nav>
+    <a className="bg-sidebar-primary text-sidebar-primary-foreground px-4 py-2 rounded">
+      Item Principal
+    </a>
+    <a className="bg-sidebar-accent text-sidebar-accent-foreground px-4 py-2 rounded">
+      Item Secundário
+    </a>
+  </nav>
+</aside>
+```
 
 ### Dark Mode
 
@@ -478,6 +705,66 @@ Os tokens seguem o padrão: `{context}.{property}`
 | `theme.dark.ring` | `--ring` | `#8D8D8D` | Focus rings |
 | `theme.dark.description` | `--description` | `#888` | Texto descritivo |
 
+**Visualização dos tokens base (Dark Mode):**
+
+![Background Dark](https://img.shields.io/badge/Background-242424?style=for-the-badge&logoColor=white)
+![Foreground Dark](https://img.shields.io/badge/Foreground-FCFCFC?style=for-the-badge&logoColor=000000)
+![Card Dark](https://img.shields.io/badge/Card-363636?style=for-the-badge&logoColor=white)
+![Primary Dark](https://img.shields.io/badge/Primary-EBEBEB?style=for-the-badge&logoColor=000000)
+![Secondary Dark](https://img.shields.io/badge/Secondary-464646?style=for-the-badge&logoColor=white)
+![Muted Dark](https://img.shields.io/badge/Muted-464646?style=for-the-badge&logoColor=white)
+![Accent Dark](https://img.shields.io/badge/Accent-464646?style=for-the-badge&logoColor=white)
+![Destructive Dark](https://img.shields.io/badge/Destructive-EF4444?style=for-the-badge&logoColor=white)
+![Border Dark](https://img.shields.io/badge/Border-rgba(255,255,255,0.1)?style=for-the-badge&logoColor=white)
+![Input Dark](https://img.shields.io/badge/Input-rgba(255,255,255,0.15)?style=for-the-badge&logoColor=white)
+![Ring Dark](https://img.shields.io/badge/Ring-8D8D8D?style=for-the-badge&logoColor=000000)
+![Description Dark](https://img.shields.io/badge/Description-888?style=for-the-badge&logoColor=000000)
+
+**Uso dos tokens base (Dark Mode):**
+```css
+/* Via variáveis CSS - Dark Mode */
+.dark .main-container {
+  background-color: var(--background); /* #242424 */
+  color: var(--foreground); /* #FCFCFC */
+}
+
+.dark .card {
+  background-color: var(--card); /* #363636 */
+  color: var(--card-foreground); /* #FCFCFC */
+  border: 1px solid var(--border); /* rgba(255, 255, 255, 0.1) */
+}
+
+.dark .primary-button {
+  background-color: var(--primary); /* #EBEBEB */
+  color: var(--primary-foreground); /* #363636 */
+}
+
+.dark .input-field {
+  border: 1px solid var(--input); /* rgba(255, 255, 255, 0.15) */
+  background-color: var(--background);
+}
+```
+
+```typescript
+// Via Tailwind - Dark Mode se aplica automaticamente
+<div className="bg-background text-foreground dark:bg-background dark:text-foreground">
+  <div className="bg-card text-card-foreground border-border rounded-lg p-4">
+    <h2 className="text-foreground font-bold">Título</h2>
+    <p className="text-muted-foreground">Texto secundário</p>
+    <p className="text-description">Texto descritivo</p>
+    
+    <button className="bg-primary text-primary-foreground px-4 py-2 rounded">
+      Ação Principal
+    </button>
+    
+    <input 
+      className="border-input bg-background focus:ring-ring"
+      type="text"
+    />
+  </div>
+</div>
+```
+
 #### Tokens de Sidebar (Dark Mode)
 
 | Token | Variável CSS | Hex | Propósito |
@@ -489,6 +776,49 @@ Os tokens seguem o padrão: `{context}.{property}`
 | `theme.dark.sidebar-accent-foreground` | `--sidebar-accent-foreground` | `#FCFCFC` | Texto sobre accent na sidebar |
 | `theme.dark.sidebar-border` | `--sidebar-border` | `rgba(255, 255, 255, 0.1)` | Bordas da sidebar |
 | `theme.dark.sidebar-ring` | `--sidebar-ring` | `#8D8D8D` | Focus rings na sidebar |
+
+**Visualização dos tokens de sidebar (Dark Mode):**
+
+![Sidebar Dark](https://img.shields.io/badge/Sidebar-363636?style=for-the-badge&logoColor=white)
+![Sidebar Foreground Dark](https://img.shields.io/badge/Sidebar%20Foreground-FCFCFC?style=for-the-badge&logoColor=000000)
+![Sidebar Primary Dark](https://img.shields.io/badge/Sidebar%20Primary-7C3AED?style=for-the-badge&logoColor=white)
+![Sidebar Accent Dark](https://img.shields.io/badge/Sidebar%20Accent-464646?style=for-the-badge&logoColor=white)
+![Sidebar Border Dark](https://img.shields.io/badge/Sidebar%20Border-rgba(255,255,255,0.1)?style=for-the-badge&logoColor=white)
+![Sidebar Ring Dark](https://img.shields.io/badge/Sidebar%20Ring-8D8D8D?style=for-the-badge&logoColor=000000)
+
+**Uso dos tokens de sidebar (Dark Mode):**
+```css
+/* Via variáveis CSS - Dark Mode */
+.dark .sidebar {
+  background-color: var(--sidebar); /* #363636 */
+  color: var(--sidebar-foreground); /* #FCFCFC */
+  border-right: 1px solid var(--sidebar-border); /* rgba(255, 255, 255, 0.1) */
+}
+
+.dark .sidebar-item-primary {
+  background-color: var(--sidebar-primary); /* #7C3AED */
+  color: var(--sidebar-primary-foreground); /* #FCFCFC */
+}
+
+.dark .sidebar-item-accent {
+  background-color: var(--sidebar-accent); /* #464646 */
+  color: var(--sidebar-accent-foreground); /* #FCFCFC */
+}
+```
+
+```typescript
+// Via Tailwind - Dark Mode se aplica automaticamente
+<aside className="bg-sidebar text-sidebar-foreground border-r border-sidebar-border">
+  <nav>
+    <a className="bg-sidebar-primary text-sidebar-primary-foreground px-4 py-2 rounded">
+      Item Principal
+    </a>
+    <a className="bg-sidebar-accent text-sidebar-accent-foreground px-4 py-2 rounded">
+      Item Secundário
+    </a>
+  </nav>
+</aside>
+```
 
 ### Como Alternar entre Temas
 
