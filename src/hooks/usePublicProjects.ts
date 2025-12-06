@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { publicProjectsService } from '@/services/uaipy-api/publicProjects';
 import { PublicProject } from '@/services/uaipy-api/types';
+import { API_CONFIG } from '@/constants/config';
 
 interface ProjectDataWithTimestamp {
     project: PublicProject;
@@ -35,7 +36,7 @@ export function usePublicProjectData(projectId: string | null, enabled: boolean 
             throw new Error('Erro ao carregar dados do projeto');
         },
         enabled: enabled && !!projectId,
-        refetchInterval: 7000, // Atualiza a cada 7 segundos
+        refetchInterval: API_CONFIG.REFETCH_INTERVAL_MS,
     });
 }
 

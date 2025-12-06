@@ -10,22 +10,34 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { SensorData } from '@/services/uaipy-api/types';
+import { logger } from '@/utils/logger';
 
-interface ChartDataPoint {
+/**
+ * Tipo para dados do gráfico que devem ter pelo menos as chaves xKey e yKey
+ * Compatível com SensorData para type safety
+ */
+export type ChartDataPoint = Record<string, string | number> & {
   [key: string]: string | number;
-  timestamp: string;
-  value: number;
-}
+} & Partial<SensorData>;
 
 interface CustomChartProps {
-  data: ChartDataPoint[];
+  /** Array de dados do gráfico. Aceita ChartDataPoint[] ou SensorData[] para type safety */
+  data: ChartDataPoint[] | SensorData[];
   chartType: "line" | "bar";
+  /** Chave do objeto de dados a ser usada no eixo X */
   xKey: string;
+  /** Chave do objeto de dados a ser usada no eixo Y */
   yKey: string;
+  /** Nome da série para a legenda */
   legendName?: string;
+  /** Unidade de medida para exibição */
   unit?: string;
+  /** Valor mínimo para o domínio do eixo Y */
   dataMin?: number;
+  /** Valor máximo para o domínio do eixo Y */
   dataMax?: number;
+  /** Cor da série do gráfico */
   color?: string;
 }
 
@@ -51,7 +63,10 @@ export function CustomChart({
             minute: "2-digit",
           });
         }
-      } catch {}
+      } catch (error) {
+        logger.debug('Erro ao formatar timestamp no eixo X:', error);
+        return value;
+      }
       return value;
     },
   };
@@ -71,7 +86,10 @@ export function CustomChart({
             "pt-BR"
           )} às ${date.toLocaleTimeString("pt-BR")}`;
         }
-      } catch {}
+      } catch (error) {
+        logger.debug('Erro ao formatar timestamp no tooltip:', error);
+        return value;
+      }
       return value;
     },
     valueFormatter: (value: number) =>

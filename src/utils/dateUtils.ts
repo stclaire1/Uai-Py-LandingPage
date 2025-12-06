@@ -1,4 +1,11 @@
 /**
+ * Valida se um timestamp é válido (não vazio e é uma string)
+ */
+export const isValidTimestamp = (timestamp: unknown): timestamp is string => {
+  return typeof timestamp === 'string' && timestamp.trim() !== '';
+};
+
+/**
  * Formata um timestamp ISO para formato brasileiro
  */
 export const formatTimestamp = (timestamp: string | undefined): string => {

@@ -7,6 +7,8 @@ interface CarouselProps {
 }
 
 export const Carousel = ({ images, imgClassName }: CarouselProps) => {
+    const canLoop = images.length >= 3;
+    
     return (
         <div className="realtive w-full md:max-w-90 lg:max-w-[430px] xl:max-w-[500px]">
             <Swiper
@@ -17,7 +19,7 @@ export const Carousel = ({ images, imgClassName }: CarouselProps) => {
                 spaceBetween={20}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}
                 speed={1300}
-                loop={true}
+                loop={canLoop}
             >
                 {images.map((image, index) => (
                     <SwiperSlide key={index}>
