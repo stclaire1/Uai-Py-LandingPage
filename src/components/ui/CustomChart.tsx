@@ -11,8 +11,14 @@ import {
   YAxis,
 } from "recharts";
 
+interface ChartDataPoint {
+  [key: string]: string | number;
+  timestamp: string;
+  value: number;
+}
+
 interface CustomChartProps {
-  data: any[];
+  data: ChartDataPoint[];
   chartType: "line" | "bar";
   xKey: string;
   yKey: string;

@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { publicProjectsService } from '@/services/uaipy-api/publicProjects';
+import { PublicProject } from '@/services/uaipy-api/types';
+
+interface ProjectDataWithTimestamp {
+    project: PublicProject;
+    timestamp: string;
+}
 
 export function usePublicProjects() {
     return useQuery({
@@ -15,13 +21,16 @@ export function usePublicProjects() {
 }
 
 export function usePublicProjectData(projectId: string | null, enabled: boolean = true) {
-    return useQuery({
+    return useQuery<ProjectDataWithTimestamp, Error>({
         queryKey: ['publicProjectData', projectId],
-        queryFn: async () => {
+        queryFn: async (): Promise<ProjectDataWithTimestamp> => {
             if (!projectId) throw new Error('ProjectId é necessário');
             const response = await publicProjectsService.getProjectData(projectId);
-            if (response.success && response.data) {
-                return response.data;
+            if (response.success && response.data && response.timestamp) {
+                return {
+                    project: response.data,
+                    timestamp: response.timestamp
+                };
             }
             throw new Error('Erro ao carregar dados do projeto');
         },

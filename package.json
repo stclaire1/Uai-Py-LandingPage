@@ -20,6 +20,7 @@
     "lucide-react": "^0.482.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.10.1",
     "recharts": "^3.3.0",
     "swiper": "^11.2.10",
     "tailwind-merge": "^3.0.2",

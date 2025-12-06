@@ -9,7 +9,7 @@ export const Footer = () => {
             <div className="flex flex-col w-full max-w[450px] m-auto border-b border-uaipy-primary mb-4 md:flex-row md:justify-between md:items-center">
                 <div className="md:w-full md:max-w-1/2 lg:max-w-2/5 xl:max-w-1/3">
                     <img src={logo} className="w-full max-w-28" alt="" />
-                    <p className="mb-5 mt-5 text-sm lg:text-base">A UAI.py surgiu pelo interesse comum entre colegas sobre o desenvolvimento sustentável e inovador e continua evoluindo todos os dias! :)</p>
+                    <p className="mb-5 mt-5 text-sm lg:text-base">A UAI.py surgiu pelo interesse comum entre colegas sobre o desenvolvimento sustentável e inovador, e continua evoluindo todos os dias! :)</p>
                 </div>
                 <div>
                     <div className="flex gap-5 mb-6 md:mb-0">
@@ -25,7 +25,7 @@ export const Footer = () => {
                     </address>
                 </div>
             </div>
-            <p className="text-center italic m-auto text-sm">Copyright ©2024 UAI.py. Todos os direitos reservados.</p>
+            <p className="text-center italic m-auto text-sm">Copyright ©2026 UAI.py. Todos os direitos reservados.</p>
         </footer>
     )
 }

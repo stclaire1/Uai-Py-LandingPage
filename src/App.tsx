@@ -1,29 +1,18 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from "@/contexts";
-import { Features } from "./components/sections/Features";
-import { Hero } from "./components/sections/Hero";
-import { Footer } from "./components/sections/Footer";
-import { ProjectConcept } from "./components/sections/ProjectConcept";
-import { Team } from "./components/sections/Team";
-import { RepoRedirect } from "./components/sections/RepoRedirect";
-import { CTA} from "./components/sections/CTA";
-import { TechEvents } from "./components/sections/TechEvents";
-import { Demo } from "./components/sections/Demo";
-import { PublicProjects } from "./components/sections/PublicProjects";
+import { Home } from "./pages/Home";
+import { Projects } from "./pages/Projects";
 
 function App() {
     return (
-        <ThemeProvider>
-          <Hero />
-          <ProjectConcept />
-          <Features />
-          <PublicProjects />
-          <Team />
-          <RepoRedirect />
-          <CTA />
-          <TechEvents />
-          <Demo />
-          <Footer />
-        </ThemeProvider>
+        <BrowserRouter>
+            <ThemeProvider>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/projects" element={<Projects />} />
+                </Routes>
+            </ThemeProvider>
+        </BrowserRouter>
     );
 }
 

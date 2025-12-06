@@ -1,14 +1,16 @@
-import { api } from '@/services/uaipy-api/api';
 import { PublicProjectsResponse, ProjectDataResponse } from './types';
+import { mockPublicProjects, getMockProjectData } from './mocks';
 
 export const publicProjectsService = {
     getPublicProjects: async (): Promise<PublicProjectsResponse> => {
-        const { data } = await api.get<PublicProjectsResponse>('/general/projects/data');
-        return data;
+        // Simula delay de rede
+        await new Promise(resolve => setTimeout(resolve, 500));
+        return mockPublicProjects;
     },
     getProjectData: async (projectId: string): Promise<ProjectDataResponse> => {
-        const { data } = await api.get<ProjectDataResponse>(`/general/projects/${projectId}/data`);
-        return data;
+        // Simula delay de rede
+        await new Promise(resolve => setTimeout(resolve, 300));
+        return getMockProjectData(projectId);
     }
 };
 
