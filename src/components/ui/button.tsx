@@ -10,17 +10,24 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default:
-                    "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+                    "bg-[#DC143C] text-white shadow-xs hover:bg-[#B71C1C] hover:transition duration-200",
                 destructive:
                     "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
                 outline:
-                    "text-uai-py-primary text-lg font-semibold !px-0 border-b-2 !rounded-none border-b-uaipy-primary hover:scale-105 hover:transition duration-300",
+                    "text-[#DC143C] text-lg font-semibold !px-0 border-b-2 !rounded-none border-b-[#DC143C] hover:scale-105 hover:transition duration-300",
+                outlineBase:
+                    "text-[#030820] text-lg font-semibold !px-0 border-b-2 !rounded-none border-b-[#030820] hover:scale-105 hover:transition duration-300",
+                chartDefault:
+                    "bg-[#030820] text-white shadow-xs hover:opacity-90 hover:transition duration-200",
+                chartOutline:
+                    "text-[#030820] text-sm font-medium border border-[#030820] rounded-md hover:bg-[#030820] hover:text-white hover:transition duration-200",
                 secondary:
                     "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-                ghost: "text-gray-900 font-bold text-2xl border-b-[3px] border-gray-900 pb-1",
-                link: "text-primary underline-offset-4 hover:underline",
-                gradient: "bg-[linear-gradient(90deg,_rgba(255,0,0,1)_0%,_rgba(118,4,17,1)_44%,_rgba(3,8,32,0.95)_100%)] text-white rounded-[10px] hover:text-uaipy-primary hover:bg-none hover:border-2 hover:border-uaipy-primary hover:transition duration-200",
-                plain: "text-uaipy-primary font-bold bg-[#FFBE2E] hover:bg-[#E29C00] hover:transition duration-200",
+                ghost: "text-[#DC143C] font-bold text-2xl border-b-[3px] border-[#DC143C] pb-1",
+                link: "text-[#DC143C] underline-offset-4 hover:underline",
+                gradient: `bg-[#DC143C] text-white rounded-[10px] hover:bg-[#B71C1C] hover:transition duration-200`,
+                plain: `bg-[#DC143C] text-white font-bold hover:bg-[#B71C1C] hover:transition duration-200`,
+                repo: `bg-white text-[#DC143C] font-bold border-2 border-[#DC143C] rounded-[10px] hover:bg-[#DC143C] hover:text-white hover:transition duration-200`,
             },
             size: {
                 default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -42,6 +49,9 @@ function Button({
     variant,
     size,
     asChild = false,
+    style,
+    onMouseEnter,
+    onMouseLeave,
     ...props
 }: React.ComponentProps<"button"> &
     VariantProps<typeof buttonVariants> & {
@@ -49,10 +59,35 @@ function Button({
     }) {
     const Comp = asChild ? Slot : "button";
 
+    const buttonStyle = variant === 'plain' 
+        ? { backgroundColor: '#DC143C', ...style }
+        : variant === 'repo'
+        ? { ...style }
+        : style;
+
+    const handleMouseEnter = variant === 'plain' && !onMouseEnter
+        ? (e: React.MouseEvent<HTMLButtonElement>) => {
+            if (e.currentTarget) {
+                e.currentTarget.style.opacity = '0.9';
+            }
+          }
+        : onMouseEnter;
+
+    const handleMouseLeave = variant === 'plain' && !onMouseLeave
+        ? (e: React.MouseEvent<HTMLButtonElement>) => {
+            if (e.currentTarget) {
+                e.currentTarget.style.opacity = '1';
+            }
+          }
+        : onMouseLeave;
+
     return (
         <Comp
             data-slot="button"
             className={cn(buttonVariants({ variant, size, className }))}
+            style={buttonStyle}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             {...props}
         />
     );

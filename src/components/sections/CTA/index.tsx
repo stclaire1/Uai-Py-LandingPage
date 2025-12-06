@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
-import { useState } from "react"
 import * as z from "zod"
-import { logger } from '@/utils/logger'
+import { useFormValidation, useWhatsApp } from '@/hooks'
 
 export const CTA = () => {
   const formSchema = z.object({
@@ -9,63 +8,18 @@ export const CTA = () => {
     message: z.string().min(1, { message: "Mensagem é obrigatória" }),
   })
 
-  type FormData = z.infer<typeof formSchema>
-
-  const [formValues, setFormValues] = useState<FormData>({
+  const {
+    formValues,
+    errors,
+    handleInputChange,
+    validateForm,
+    resetForm,
+  } = useFormValidation<typeof formSchema>(formSchema, {
     name: "",
     message: "",
   })
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormValues(prev => ({ ...prev, [name]: value }))
-    
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }))
-    }
-  }
-
-  const validateForm = () => {
-    try {
-      formSchema.parse(formValues)
-      setErrors({})
-      return true
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {}
-        error.issues.forEach((err: z.core.$ZodIssue) => {
-          if (err.path[0]) {
-            newErrors[err.path[0] as string] = err.message
-          }
-        })
-        setErrors(newErrors)
-      }
-      return false
-    }
-  }
-
-  const sendToWhatsApp = () => {
-    const phoneNumber = "553498619953"
-    
-    const message = `*Solicitação de Contato UAI.py*
-
- *Nome:* ${formValues.name}
-
-*Mensagem:*
-${formValues.message}
-
----
-_Enviado através do site da UAI.py_`
-
-    const encodedMessage = encodeURIComponent(message)
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
-    
-    window.open(whatsappUrl, '_blank')
-  }
+  const { sendMessage, isSubmitting, isSuccess, error, clearError } = useWhatsApp()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -74,25 +28,10 @@ _Enviado através do site da UAI.py_`
       return
     }
 
-    setIsSubmitting(true)
-    
     try {
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      sendToWhatsApp()
-      
-      setFormValues({
-        name: "",
-        message: "",
-      })
-      
-      setIsSuccess(true)
-      setTimeout(() => setIsSuccess(false), 5000)
-      
+      await sendMessage(formValues.name, formValues.message)
+      resetForm()
     } catch (error) {
-      logger.error("Erro ao enviar formulário:", error)
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -108,6 +47,19 @@ _Enviado através do site da UAI.py_`
             <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
               <p className="font-semibold">Redirecionamento para WhatsApp concluído!</p>
               <p>Continue a conversa no WhatsApp para saber mais</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+              <p className="font-semibold">Erro ao enviar mensagem</p>
+              <p className="text-sm">{error}</p>
+              <button
+                onClick={clearError}
+                className="mt-2 text-sm underline hover:no-underline"
+              >
+                Fechar
+              </button>
             </div>
           )}
 

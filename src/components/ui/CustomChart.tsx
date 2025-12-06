@@ -10,22 +10,35 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { SensorData } from '@/services/uaipy-api/types';
+import { logger } from '@/utils/logger';
+import { SENSOR_COLORS, UI_COLORS } from '@/constants/colors';
 
-interface ChartDataPoint {
+/**
+ * Tipo para dados do gráfico que devem ter pelo menos as chaves xKey e yKey
+ * Compatível com SensorData para type safety
+ */
+export type ChartDataPoint = Record<string, string | number> & {
   [key: string]: string | number;
-  timestamp: string;
-  value: number;
-}
+} & Partial<SensorData>;
 
 interface CustomChartProps {
-  data: ChartDataPoint[];
+  /** Array de dados do gráfico. Aceita ChartDataPoint[] ou SensorData[] para type safety */
+  data: ChartDataPoint[] | SensorData[];
   chartType: "line" | "bar";
+  /** Chave do objeto de dados a ser usada no eixo X */
   xKey: string;
+  /** Chave do objeto de dados a ser usada no eixo Y */
   yKey: string;
+  /** Nome da série para a legenda */
   legendName?: string;
+  /** Unidade de medida para exibição */
   unit?: string;
+  /** Valor mínimo para o domínio do eixo Y */
   dataMin?: number;
+  /** Valor máximo para o domínio do eixo Y */
   dataMax?: number;
+  /** Cor da série do gráfico */
   color?: string;
 }
 
@@ -38,7 +51,7 @@ export function CustomChart({
   unit = "",
   dataMin = 0,
   dataMax = 0,
-  color = "#3b82f6",
+  color = SENSOR_COLORS.DEFAULT,
 }: CustomChartProps) {
   const xAxisConfig = {
     dataKey: xKey,
@@ -51,7 +64,10 @@ export function CustomChart({
             minute: "2-digit",
           });
         }
-      } catch {}
+      } catch (error) {
+        logger.debug('Erro ao formatar timestamp no eixo X:', error);
+        return value;
+      }
       return value;
     },
   };
@@ -71,7 +87,10 @@ export function CustomChart({
             "pt-BR"
           )} às ${date.toLocaleTimeString("pt-BR")}`;
         }
-      } catch {}
+      } catch (error) {
+        logger.debug('Erro ao formatar timestamp no tooltip:', error);
+        return value;
+      }
       return value;
     },
     valueFormatter: (value: number) =>
@@ -106,8 +125,8 @@ export function CustomChart({
             labelFormatter={tooltipConfig.labelFormatter}
             formatter={(value: number) => tooltipConfig.valueFormatter(value)}
             contentStyle={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #e2e8f0",
+              backgroundColor: UI_COLORS.TOOLTIP_BG,
+              border: `1px solid ${UI_COLORS.TOOLTIP_BORDER}`,
               borderRadius: "6px",
               fontSize: "14px",
             }}
@@ -141,8 +160,8 @@ export function CustomChart({
             labelFormatter={tooltipConfig.labelFormatter}
             formatter={(value: number) => tooltipConfig.valueFormatter(value)}
             contentStyle={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #e2e8f0",
+              backgroundColor: UI_COLORS.TOOLTIP_BG,
+              border: `1px solid ${UI_COLORS.TOOLTIP_BORDER}`,
               borderRadius: "6px",
               fontSize: "14px",
             }}

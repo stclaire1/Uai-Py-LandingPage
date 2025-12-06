@@ -1,16 +1,17 @@
-import { PublicProjectsResponse, ProjectDataResponse, SensorData } from './types';
+import { PublicProjectsResponse, ProjectDataResponse, SensorData, PublicProject } from './types';
+import type { Device, Actor } from './types';
+import { getSensorConfig, SENSOR_READING_INTERVAL_MS, DEFAULT_DATA_POINTS } from './mockConfig';
 
-// Função auxiliar para gerar dados de sensores com variação realista
 function generateSensorData(
     baseValue: number,
     variation: number,
-    count: number = 20
+    count: number = DEFAULT_DATA_POINTS
 ): SensorData[] {
     const data: SensorData[] = [];
     const now = new Date();
     
     for (let i = count - 1; i >= 0; i--) {
-        const timestamp = new Date(now.getTime() - i * 60000); // 1 minuto entre cada leitura
+        const timestamp = new Date(now.getTime() - i * SENSOR_READING_INTERVAL_MS);
         const randomVariation = (Math.random() - 0.5) * variation;
         const value = baseValue + randomVariation;
         
@@ -24,7 +25,6 @@ function generateSensorData(
     return data;
 }
 
-// Estação Meteorológica 1: Urbana - Centro da Cidade
 const station1: PublicProjectsResponse = {
     success: true,
     data: {
@@ -68,7 +68,6 @@ const station1: PublicProjectsResponse = {
     timestamp: new Date().toISOString()
 };
 
-// Estação Meteorológica 2: Rural - Zona Agrícola
 const station2: PublicProjectsResponse = {
     success: true,
     data: {
@@ -124,7 +123,6 @@ const station2: PublicProjectsResponse = {
     timestamp: new Date().toISOString()
 };
 
-// Estação Meteorológica 3: Montanhosa - Alta Altitude
 const station3: PublicProjectsResponse = {
     success: true,
     data: {
@@ -174,7 +172,6 @@ const station3: PublicProjectsResponse = {
     timestamp: new Date().toISOString()
 };
 
-// Mock combinado com todas as 3 estações
 export const mockPublicProjects: PublicProjectsResponse = {
     success: true,
     data: {
@@ -188,10 +185,8 @@ export const mockPublicProjects: PublicProjectsResponse = {
     timestamp: new Date().toISOString()
 };
 
-// Armazena o estado atual dos dados de cada projeto
 const projectDataState: Record<string, PublicProject> = {};
 
-// Função para obter dados de um projeto específico com atualização dinâmica
 export function getMockProjectData(projectId: string): ProjectDataResponse {
     let baseProject;
     
@@ -209,73 +204,31 @@ export function getMockProjectData(projectId: string): ProjectDataResponse {
             throw new Error('Projeto não encontrado');
     }
     
-    // Se não existe estado, inicializa com os dados base
     if (!projectDataState[projectId]) {
         projectDataState[projectId] = JSON.parse(JSON.stringify(baseProject));
     }
     
     const currentProject = projectDataState[projectId];
-    
-    // Atualiza os dados com valores mais recentes para simular atualização em tempo real
     const updatedProject: PublicProject = {
         ...currentProject,
-        devices: currentProject.devices.map((device) => ({
+        devices: currentProject.devices.map((device: Device) => ({
             ...device,
-            actors: device.actors.map((actor) => {
+            actors: device.actors.map((actor: Actor) => {
                 const lastData = actor.data[actor.data.length - 1];
                 const baseValue = lastData.value;
-                
-                // Define variação baseada no tipo de sensor
-                let variation: number;
-                let minValue: number;
-                let maxValue: number;
-                
-                if (actor.actorName.includes('Temperatura do Ar')) {
-                    variation = projectId === 'station-001' ? 2.5 : projectId === 'station-002' ? 3 : 4;
-                    minValue = projectId === 'station-001' ? 25 : projectId === 'station-002' ? 20 : 13;
-                    maxValue = projectId === 'station-001' ? 32 : projectId === 'station-002' ? 28 : 23;
-                } else if (actor.actorName.includes('Temperatura do Solo')) {
-                    variation = 1.5;
-                    minValue = 20;
-                    maxValue = 25;
-                } else if (actor.actorName.includes('Umidade do Ar')) {
-                    variation = 8;
-                    minValue = projectId === 'station-001' ? 55 : projectId === 'station-002' ? 65 : 75;
-                    maxValue = projectId === 'station-001' ? 75 : projectId === 'station-002' ? 85 : 95;
-                } else if (actor.actorName.includes('Umidade do Solo')) {
-                    variation = 4;
-                    minValue = 40;
-                    maxValue = 50;
-                } else if (actor.actorName.includes('Precipitação')) {
-                    variation = 1.5;
-                    minValue = 0;
-                    maxValue = projectId === 'station-003' ? 5 : 3;
-                } else if (actor.actorName.includes('Pressão')) {
-                    variation = 12;
-                    minValue = 835;
-                    maxValue = 865;
-                } else {
-                    variation = 5;
-                    minValue = baseValue - 10;
-                    maxValue = baseValue + 10;
-                }
-                
-                // Gera novo valor com tendência suave (não totalmente aleatório)
-                const trend = (Math.random() - 0.5) * 0.3; // Tendência suave
+                const sensorConfig = getSensorConfig(actor.actorName, projectId);
+                const { variation, minValue, maxValue } = sensorConfig;
+                const trend = (Math.random() - 0.5) * 0.3;
                 const randomChange = (Math.random() - 0.5) * variation;
                 let newValue = baseValue + trend + randomChange;
-                
-                // Limita aos valores mínimos e máximos
                 newValue = Math.max(minValue, Math.min(maxValue, newValue));
                 
-                // Adiciona novo ponto de dados
                 const newDataPoint: SensorData = {
                     id: `sensor-${Date.now()}-${Math.random()}`,
                     value: Math.round(newValue * 10) / 10,
                     timestamp: new Date().toISOString()
                 };
                 
-                // Mantém apenas os últimos 20 pontos
                 const updatedData = [...actor.data.slice(1), newDataPoint];
                 
                 return {
@@ -286,7 +239,6 @@ export function getMockProjectData(projectId: string): ProjectDataResponse {
         }))
     };
     
-    // Atualiza o estado
     projectDataState[projectId] = updatedProject;
     
     return {

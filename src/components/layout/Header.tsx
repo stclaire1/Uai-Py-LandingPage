@@ -11,7 +11,6 @@ export const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // Fecha o menu quando a rota muda
     useEffect(() => {
         setIsMenuOpen(false);
     }, [location.pathname]);
