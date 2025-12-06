@@ -8,9 +8,9 @@
 
 - [Visão Geral](#visão-geral)
 - [Design Tokens](#design-tokens)
+- [Cores de Marca](#cores-de-marca)
 - [Cores Semânticas](#cores-semânticas)
 - [Cores de Dados](#cores-de-dados)
-- [Cores de Marca](#cores-de-marca)
 - [Sistema de Tema](#sistema-de-tema)
 - [Guidelines de Uso](#guidelines-de-uso)
 - [Acessibilidade](#acessibilidade)
@@ -22,9 +22,9 @@
 
 O sistema de cores do Uai-Py Landing Page é baseado em **Design Tokens** que garantem consistência visual e facilitam a manutenção. As cores são organizadas em três categorias principais:
 
-1. **Cores Semânticas**: Status, feedback e ações do sistema
-2. **Cores de Dados**: Visualização de dados e sensores
-3. **Cores de Marca**: Identidade visual e elementos especiais
+1. **Cores de Marca**: Identidade visual e elementos especiais
+2. **Cores Semânticas**: Status, feedback e ações do sistema
+3. **Cores de Dados**: Visualização de dados e sensores
 
 O sistema suporta **modo claro** e **modo escuro** através de variáveis CSS que se adaptam automaticamente ao tema selecionado.
 
@@ -55,6 +55,77 @@ Token Base → Token Semântico → Token de Componente
 
 ---
 
+## Cores de Marca
+
+Cores que representam a identidade visual do Uai-Py.
+
+### Cores Principais
+
+| Token | Propósito | Hex | RGB | Uso |
+|-------|-----------|-----|-----|-----|
+| `brand.primary` | Cor primária da marca | `#030820` | `rgb(3, 8, 32)` | Headers, CTAs, elementos de destaque |
+| `brand.projects-bg` | Fundo de containers de projetos | `#000932` | `rgb(0, 9, 50)` | Background de seções de projetos |
+
+**Visualização das cores principais:**
+
+![UaiPy Primary](https://img.shields.io/badge/UaiPy%20Primary-030820?style=for-the-badge&logoColor=white)
+![Projects BG](https://img.shields.io/badge/Projects%20BG-000932?style=for-the-badge&logoColor=white)
+
+### Tipos de Branco
+
+O projeto utiliza diferentes tons de branco para criar hierarquia visual e profundidade na interface.
+
+| Token | Nome | Hex | RGB | Uso |
+|-------|------|-----|-----|-----|
+| `brand.white.pure` | Branco Puro | `#FFFFFF` | `rgb(255, 255, 255)` | Fundo principal, cards |
+| `brand.white.sidebar` | Branco Sidebar | `#FCFCFC` | `rgb(252, 252, 252)` | Fundo de sidebars, elementos elevados |
+| `brand.white.soft` | Branco Suave | `#FAFAFA` | `rgb(250, 250, 250)` | Texto sobre elementos escuros |
+| `brand.white.muted` | Branco Acinzentado | `#F7F7F7` | `rgb(247, 247, 247)` | Elementos secundários, muted, accent |
+| `brand.white.border` | Branco Borda | `#EBEBEB` | `rgb(235, 235, 235)` | Bordas, inputs, divisores |
+
+**Visualização dos tipos de branco:**
+
+![Branco Puro](https://img.shields.io/badge/Branco%20Puro-FFFFFF?style=for-the-badge&logoColor=000000)
+![Branco Sidebar](https://img.shields.io/badge/Branco%20Sidebar-FCFCFC?style=for-the-badge&logoColor=000000)
+![Branco Suave](https://img.shields.io/badge/Branco%20Suave-FAFAFA?style=for-the-badge&logoColor=000000)
+![Branco Acinzentado](https://img.shields.io/badge/Branco%20Acinzentado-F7F7F7?style=for-the-badge&logoColor=000000)
+![Branco Borda](https://img.shields.io/badge/Branco%20Borda-EBEBEB?style=for-the-badge&logoColor=000000)
+
+**Uso das cores principais:**
+```typescript
+import { PROJECTS_CONTAINER_BG } from '@/constants/colors';
+
+// Container de projetos
+<div style={{ backgroundColor: PROJECTS_CONTAINER_BG }}>
+  {/* Conteúdo dos projetos */}
+</div>
+```
+
+**Uso dos tipos de branco:**
+```css
+/* Via variáveis CSS */
+.background-pure {
+  background-color: var(--background); /* #FFFFFF */
+}
+
+.sidebar-bg {
+  background-color: var(--sidebar); /* #FCFCFC */
+}
+
+.border-subtle {
+  border-color: var(--border); /* #EBEBEB */
+}
+```
+
+```typescript
+// Via Tailwind
+<div className="bg-background"> {/* #FFFFFF */}
+<div className="bg-sidebar"> {/* #FCFCFC */}
+<div className="border-border"> {/* #EBEBEB */}
+```
+
+---
+
 ## Cores Semânticas
 
 Cores que comunicam significado e estado no sistema.
@@ -69,23 +140,11 @@ Indicam o estado de conexão dos dispositivos IoT.
 | `device.status.offline` | Dispositivo desconectado | `#ef4444` | `#ef4444` | `bg-red-500` |
 | `device.status.default` | Estado desconhecido ou indefinido | `#6b7280` | `#6b7280` | `bg-gray-500` |
 
-<div style="display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap;">
-  <div style="text-align: center;">
-    <div style="width: 80px; height: 80px; background-color: #22c55e; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
-    <div style="font-size: 12px; color: #666;">Online</div>
-    <div style="font-size: 11px; color: #999; font-family: monospace;">#22c55e</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 80px; height: 80px; background-color: #ef4444; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
-    <div style="font-size: 12px; color: #666;">Offline</div>
-    <div style="font-size: 11px; color: #999; font-family: monospace;">#ef4444</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 80px; height: 80px; background-color: #6b7280; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
-    <div style="font-size: 12px; color: #666;">Default</div>
-    <div style="font-size: 11px; color: #999; font-family: monospace;">#6b7280</div>
-  </div>
-</div>
+**Visualização das cores:**
+
+![Online](https://img.shields.io/badge/Online-22c55e?style=for-the-badge&logoColor=white)
+![Offline](https://img.shields.io/badge/Offline-ef4444?style=for-the-badge&logoColor=white)
+![Default](https://img.shields.io/badge/Default-6b7280?style=for-the-badge&logoColor=white)
 
 **Uso:**
 ```typescript
@@ -128,48 +187,16 @@ Cada tipo de sensor possui uma cor única para facilitar identificação visual.
 | `sensor.pm25-pm10` | PM25/PM10 | `#e74c3c` | `rgb(231, 76, 60)` | Gráficos, indicadores, badges |
 | `sensor.default` | Padrão/Fallback | `#3b82f6` | `rgb(59, 130, 246)` | Quando tipo desconhecido |
 
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0;">
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #ff6b6b; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">AR TEMP</div>
-    <div style="font-size: 11px; color: #666;">Temperatura Ar</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#ff6b6b</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #8dc9ab; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">SOL TEMP</div>
-    <div style="font-size: 11px; color: #666;">Temperatura Solo</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#8dc9ab</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #b974db; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">AR HUM</div>
-    <div style="font-size: 11px; color: #666;">Umidade Ar</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#b974db</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #45b7d1; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">SOL HUM</div>
-    <div style="font-size: 11px; color: #666;">Umidade Solo</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#45b7d1</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #feca57; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">CHUVA</div>
-    <div style="font-size: 11px; color: #666;">Chuva</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#feca57</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #95a5a6; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">CO2</div>
-    <div style="font-size: 11px; color: #666;">CO2</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#95a5a6</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #e74c3c; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">PM25/PM10</div>
-    <div style="font-size: 11px; color: #666;">PM25/PM10</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#e74c3c</div>
-  </div>
-  <div style="text-align: center;">
-    <div style="width: 100%; height: 60px; background-color: #3b82f6; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">DEFAULT</div>
-    <div style="font-size: 11px; color: #666;">Padrão</div>
-    <div style="font-size: 10px; color: #999; font-family: monospace;">#3b82f6</div>
-  </div>
-</div>
+**Visualização das cores:**
+
+![Temperatura Ar](https://img.shields.io/badge/Temperatura%20Ar-ff6b6b?style=for-the-badge&logoColor=white)
+![Temperatura Solo](https://img.shields.io/badge/Temperatura%20Solo-8dc9ab?style=for-the-badge&logoColor=white)
+![Umidade Ar](https://img.shields.io/badge/Umidade%20Ar-b974db?style=for-the-badge&logoColor=white)
+![Umidade Solo](https://img.shields.io/badge/Umidade%20Solo-45b7d1?style=for-the-badge&logoColor=white)
+![Chuva](https://img.shields.io/badge/Chuva-feca57?style=for-the-badge&logoColor=white)
+![CO2](https://img.shields.io/badge/CO2-95a5a6?style=for-the-badge&logoColor=white)
+![PM25/PM10](https://img.shields.io/badge/PM25%2FPM10-e74c3c?style=for-the-badge&logoColor=white)
+![Padrão](https://img.shields.io/badge/Padrão-3b82f6?style=for-the-badge&logoColor=white)
 
 **Uso:**
 ```typescript
@@ -230,40 +257,6 @@ Cores para visualização de dados em gráficos e dashboards.
 
 /* Via Tailwind */
 <div className="bg-chart-1 text-white">...</div>
-```
-
----
-
-## Cores de Marca
-
-Cores que representam a identidade visual do Uai-Py.
-
-| Token | Propósito | Hex | RGB | Uso |
-|-------|-----------|-----|-----|-----|
-| `brand.primary` | Cor primária da marca | `#030820` | `rgb(3, 8, 32)` | Headers, CTAs, elementos de destaque |
-| `brand.projects-bg` | Fundo de containers de projetos | `#000932` | `rgb(0, 9, 50)` | Background de seções de projetos |
-
-<div style="display: flex; gap: 15px; margin: 20px 0;">
-  <div style="text-align: center; flex: 1;">
-    <div style="width: 100%; height: 100px; background-color: #030820; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">UaiPy Primary</div>
-    <div style="font-size: 12px; color: #666;">Marca Primária</div>
-    <div style="font-size: 11px; color: #999; font-family: monospace;">#030820</div>
-  </div>
-  <div style="text-align: center; flex: 1;">
-    <div style="width: 100%; height: 100px; background-color: #000932; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Projects BG</div>
-    <div style="font-size: 12px; color: #666;">Fundo de Projetos</div>
-    <div style="font-size: 11px; color: #999; font-family: monospace;">#000932</div>
-  </div>
-</div>
-
-**Uso:**
-```typescript
-import { PROJECTS_CONTAINER_BG } from '@/constants/colors';
-
-// Container de projetos
-<div style={{ backgroundColor: PROJECTS_CONTAINER_BG }}>
-  {/* Conteúdo dos projetos */}
-</div>
 ```
 
 ---
