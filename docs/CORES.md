@@ -91,6 +91,28 @@ O projeto utiliza diferentes tons de branco para criar hierarquia visual e profu
 ![Branco Acinzentado](https://img.shields.io/badge/Branco%20Acinzentado-F7F7F7?style=for-the-badge&logoColor=000000)
 ![Branco Borda](https://img.shields.io/badge/Branco%20Borda-EBEBEB?style=for-the-badge&logoColor=000000)
 
+### Tipos de Preto
+
+O projeto utiliza diferentes tons de preto e cinza escuro para criar hierarquia tipográfica e garantir legibilidade em diferentes contextos.
+
+| Token | Nome | Hex | RGB | Uso |
+|-------|------|-----|-----|-----|
+| `brand.black.primary` | Preto Principal | `#242424` | `rgb(36, 36, 36)` | Texto principal, títulos, corpo de texto |
+| `brand.black.secondary` | Preto Secundário | `#363636` | `rgb(54, 54, 54)` | Elementos primários, texto sobre fundos claros |
+| `brand.black.muted` | Preto Desbotado | `#8D8D8D` | `rgb(141, 141, 141)` | Texto secundário, labels, descrições |
+| `brand.black.ring` | Preto Ring | `#B4B4B4` | `rgb(180, 180, 180)` | Focus rings, elementos de foco |
+| `brand.black.description` | Preto Descrição | `#aaa8a8` | `rgb(170, 168, 168)` | Texto descritivo, metadados |
+| `brand.black.dark` | Preto Dark | `#464646` | `rgb(70, 70, 70)` | Elementos secundários no dark mode |
+
+**Visualização dos tipos de preto:**
+
+![Preto Principal](https://img.shields.io/badge/Preto%20Principal-242424?style=for-the-badge&logoColor=white)
+![Preto Secundário](https://img.shields.io/badge/Preto%20Secundário-363636?style=for-the-badge&logoColor=white)
+![Preto Desbotado](https://img.shields.io/badge/Preto%20Desbotado-8D8D8D?style=for-the-badge&logoColor=white)
+![Preto Ring](https://img.shields.io/badge/Preto%20Ring-B4B4B4?style=for-the-badge&logoColor=000000)
+![Preto Descrição](https://img.shields.io/badge/Preto%20Descrição-aaa8a8?style=for-the-badge&logoColor=000000)
+![Preto Dark](https://img.shields.io/badge/Preto%20Dark-464646?style=for-the-badge&logoColor=white)
+
 **Uso das cores principais:**
 ```typescript
 import { PROJECTS_CONTAINER_BG } from '@/constants/colors';
@@ -124,6 +146,125 @@ import { PROJECTS_CONTAINER_BG } from '@/constants/colors';
 <div className="border-border"> {/* #EBEBEB */}
 ```
 
+**Uso dos tipos de preto:**
+```css
+/* Via variáveis CSS */
+.text-primary {
+  color: var(--foreground); /* #242424 */
+}
+
+.text-muted {
+  color: var(--muted-foreground); /* #8D8D8D */
+}
+
+.text-description {
+  color: var(--description); /* #aaa8a8 */
+}
+```
+
+```typescript
+// Via Tailwind
+<h1 className="text-foreground"> {/* #242424 */}
+<p className="text-muted-foreground"> {/* #8D8D8D */}
+<span className="text-description"> {/* #aaa8a8 */}
+```
+
+### Tipografia e Cores de Fontes
+
+O projeto utiliza a fonte **Inter** como fonte principal, uma fonte sans-serif moderna e legível, ideal para interfaces digitais.
+
+#### Família de Fonte
+
+| Fonte | Peso | Uso | Importação |
+|-------|------|-----|------------|
+| **Inter** | 400 (Regular) | Texto padrão, corpo de texto, parágrafos | Google Fonts |
+| **Inter** | 700 (Bold) | Títulos, headings, elementos de destaque | Google Fonts |
+
+**Importação:**
+```css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+```
+
+**Uso:**
+```css
+body {
+  font-family: 'Inter', sans-serif;
+}
+```
+
+```typescript
+// Via Tailwind (configurado globalmente)
+<div className="font-normal"> {/* Inter 400 */}
+<h1 className="font-bold"> {/* Inter 700 */}
+```
+
+#### Cores de Fontes por Contexto
+
+As cores de texto variam conforme o contexto e o tema (light/dark mode).
+
+| Contexto | Light Mode | Dark Mode | Variável CSS | Uso |
+|----------|------------|-----------|--------------|-----|
+| **Texto Principal** | `#242424` | `#FCFCFC` | `--foreground` | Corpo de texto, parágrafos |
+| **Texto em Cards** | `#242424` | `#FCFCFC` | `--card-foreground` | Texto dentro de cards |
+| **Texto Primário** | `#FAFAFA` | `#363636` | `--primary-foreground` | Texto sobre elementos primários |
+| **Texto Secundário** | `#363636` | `#FCFCFC` | `--secondary-foreground` | Texto sobre elementos secundários |
+| **Texto Desbotado** | `#8D8D8D` | `#B4B4B4` | `--muted-foreground` | Labels, metadados, texto secundário |
+| **Texto Descrição** | `#aaa8a8` | `#888` | `--description` | Texto descritivo, ajuda |
+| **Texto em Sidebar** | `#242424` | `#FCFCFC` | `--sidebar-foreground` | Texto na sidebar |
+
+**Visualização das cores de fontes (Light Mode):**
+
+![Texto Principal](https://img.shields.io/badge/Texto%20Principal-242424?style=for-the-badge&logoColor=white)
+![Texto Primário](https://img.shields.io/badge/Texto%20Primário-FAFAFA?style=for-the-badge&logoColor=000000)
+![Texto Secundário](https://img.shields.io/badge/Texto%20Secundário-363636?style=for-the-badge&logoColor=white)
+![Texto Desbotado](https://img.shields.io/badge/Texto%20Desbotado-8D8D8D?style=for-the-badge&logoColor=000000)
+![Texto Descrição](https://img.shields.io/badge/Texto%20Descrição-aaa8a8?style=for-the-badge&logoColor=000000)
+
+**Uso das cores de fontes:**
+```css
+/* Via variáveis CSS */
+.text-primary {
+  color: var(--foreground);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.text-description {
+  color: var(--description);
+}
+```
+
+```typescript
+// Via Tailwind
+<p className="text-foreground"> {/* Texto principal */}
+<p className="text-muted-foreground"> {/* Texto desbotado */}
+<p className="text-description"> {/* Texto descritivo */}
+<h1 className="text-card-foreground font-bold"> {/* Título em card */}
+```
+
+#### Hierarquia Tipográfica
+
+| Elemento | Tamanho | Peso | Cor | Classe Tailwind |
+|----------|---------|------|-----|-----------------|
+| **H1** | `3xl` / `4xl` | Bold (700) | `--foreground` | `text-3xl font-bold` ou `text-4xl font-bold` |
+| **H2** | `2xl` / `3xl` | Bold (700) | `--foreground` | `text-2xl font-bold` ou `text-3xl font-bold` |
+| **H3** | `xl` / `2xl` | Bold (700) | `--foreground` | `text-xl font-bold` ou `text-2xl font-bold` |
+| **H4** | `lg` / `xl` | Semibold/Bold | `--foreground` | `text-lg font-semibold` ou `text-xl font-bold` |
+| **Parágrafo** | `base` / `sm` | Normal (400) | `--foreground` | `text-base` ou `text-sm` |
+| **Label** | `sm` / `xs` | Medium/Normal | `--muted-foreground` | `text-sm font-medium` ou `text-xs` |
+| **Descrição** | `sm` | Normal (400) | `--description` | `text-sm` |
+
+**Exemplo de hierarquia:**
+```typescript
+<h1 className="text-4xl font-bold text-foreground">Título Principal</h1>
+<h2 className="text-2xl font-bold text-foreground">Subtítulo</h2>
+<p className="text-base text-foreground">Parágrafo de texto normal</p>
+<span className="text-sm text-muted-foreground">Label ou metadado</span>
+<p className="text-sm text-description">Texto descritivo ou ajuda</p>
+```
+
 ---
 
 ## Cores Semânticas
@@ -136,14 +277,14 @@ Indicam o estado de conexão dos dispositivos IoT.
 
 | Token | Propósito | Light Mode | Dark Mode | Classe Tailwind |
 |-------|-----------|------------|-----------|-----------------|
-| `device.status.online` | Dispositivo conectado e operacional | `#22c55e` | `#22c55e` | `bg-green-500` |
-| `device.status.offline` | Dispositivo desconectado | `#ef4444` | `#ef4444` | `bg-red-500` |
+| `device.status.online` | Dispositivo conectado e operacional | `#067F32` | `#067F32` | `bg-green-500` |
+| `device.status.offline` | Dispositivo desconectado | `#C41C1C` | `#C41C1C` | `bg-red-500` |
 | `device.status.default` | Estado desconhecido ou indefinido | `#6b7280` | `#6b7280` | `bg-gray-500` |
 
 **Visualização das cores:**
 
-![Online](https://img.shields.io/badge/Online-22c55e?style=for-the-badge&logoColor=white)
-![Offline](https://img.shields.io/badge/Offline-ef4444?style=for-the-badge&logoColor=white)
+![Online](https://img.shields.io/badge/Online-067F32?style=for-the-badge&logoColor=white)
+![Offline](https://img.shields.io/badge/Offline-C41C1C?style=for-the-badge&logoColor=white)
 ![Default](https://img.shields.io/badge/Default-6b7280?style=for-the-badge&logoColor=white)
 
 **Uso:**

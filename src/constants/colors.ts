@@ -16,8 +16,8 @@ export const SENSOR_COLORS = {
  * Cores de status dos dispositivos
  */
 export const DEVICE_STATUS_COLORS = {
-  ONLINE: 'bg-green-500',
-  OFFLINE: 'bg-red-500',
+  ONLINE: 'bg-[#067F32]',
+  OFFLINE: 'bg-[#C41C1C]',
   DEFAULT: 'bg-gray-500',
 } as const;
 
